@@ -20,10 +20,11 @@ class AuthController extends ApiController
   {
       
     $validacion = Validator::make($request->all(), [
-        'name' => 'required',
-        'email' => 'required|email', 
+        'nombre_usuario' => 'required',
+        'usuario_cedula' => 'required', 
+        'email' => 'required|email',
         'password' => 'required',
-        'confirm_password' => 'required|same:password'
+        'tipo_id' => '',
     ]);
 
     if($validacion->fails()){
@@ -35,7 +36,7 @@ class AuthController extends ApiController
     $input = $request->all();
     $input["password"] = bcrypt($request->get("password"));
     $user = User::create($input);
-    $token = $user->createToken("oneflix")->accessToken;
+    $token = $user->createToken("eccotech")->accessToken;
 
     $data =    [
       "token"=>$token,
