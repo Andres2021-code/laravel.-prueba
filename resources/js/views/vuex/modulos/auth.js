@@ -1,35 +1,54 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
 import axios from 'axios'
-Vue.use(Vuex)
 
-const store = new Vuex.Store({
-  state: {
+const state = {
     token: localStorage.getItem('access_token') || null
-  },
-  getters: {
+}
+
+
+ const getters = {
     loggedIn(state) {
-      return state.token !== null
+        return state.token !== null
     }
-  },
-  mutations: {
+ }
+
+  const mutations = {
     retrieveToken(state, token) {
       state.token = token
     },
     destroyToken(state) {
       state.token = null
     }
-  },
-  actions: {
+    
+  }
+  const actions = {
+    registerUser(context, data){
+      
+      return new Promise((resolve, reject) => {
+        axios.post('/api/register', {
+          nombre_usuario: data.nombre_usuario,
+          usuario_cedula: data.usuario_cedula,
+          email: data.email,
+          password: data.password,
+          tipo_id: Number(data.tipo_id)
+        })
+          .then(response => {
+            console.log(response)
+            resolve(response)
+          })
+          .catch(error => {
+            //console.log(error)
+            reject(error)
+          })
+      })
+    },
     retrieveToken(context, credentials) {
 
       return new Promise((resolve, reject) => {
-        axios.post('/oauth/token', {
-          username: credentials.username,
+        axios.post('/api/login', {
+          email: credentials.email,
           password: credentials.password,
-          grant_type:"password",
-          client_id: 2,
-          client_secret: "L6xa0RgN5hkhTk7eLmDZIhtRYLONCSKOoALC4wAH"
+          usuario_cedula: credentials.usuario_cedula,
+          tipo_id: credentials.tipo_id,
         })
           .then(response => {
             //console.log(response)
@@ -46,6 +65,22 @@ const store = new Vuex.Store({
       })
 
     },
+    listTypeUser(){
+      return new Promise((resolve, reject) => {
+      axios.get('/api/listtypeuser', {
+
+      }).then(response => {
+       // console.log(response.data.data.tipo_usuario)  
+        resolve(response)
+      })
+      .catch(error => {
+        console.log(error)
+        reject(error)
+      })})
+    
+      
+    },
+
     destroyToken(context) {
       
       if (context.getters.loggedIn){
@@ -70,9 +105,10 @@ const store = new Vuex.Store({
             })
         })
 
-      }
+      }}}
+      export default {
+        state,
+        getters,
+        actions,
+        mutations,
     }
-  }
-})
-
-export default store

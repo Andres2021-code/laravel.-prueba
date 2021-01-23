@@ -2,8 +2,8 @@ require('./bootstrap');
 
 import Vue from 'vue'
 import router from './router'
-import store from './store'
-import App from './views/App'
+import store from './views/vuex/store'
+import App from './views/component/App'
 
 router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
@@ -21,9 +21,11 @@ router.beforeEach((to, from, next) => {
     }
   })
 
+
 const app = new Vue({
     el: '#app',
     components: { App },
+    store,
     router,
-    store
+ 
 });

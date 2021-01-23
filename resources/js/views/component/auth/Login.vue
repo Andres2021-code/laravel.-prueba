@@ -12,8 +12,9 @@
              
                 <div class="select">
                   <select>
-                    <option>Select dropdown</option>
-                    <option>With options</option>
+                     
+                    <option>seleccionar tipo de usuario</option>
+                         <option v-for="user in type_user" v-bind:key="user.id" v-bind:value="user.id"> {{ user.nombre }} </option>
                   </select>
                 </div>         
              
@@ -25,7 +26,7 @@
             </div>
             <div class="field">
               <div class="control">
-                <input type="email" class="input" placeholder="user@ejemplo.com" v-model="username" />
+                <input type="email" class="input" placeholder="user@ejemplo.com" v-model="email" />
               </div>
             </div>
             <div class="field">
@@ -33,7 +34,9 @@
                 <input type="password" class="input" v-model="password" />
               </div>
             </div>
-            <button type="submit" class="button is-primary">Sign in</button>
+            <button type="submit" class="button is-primary">Iniciar sesion</button>
+
+            <button @click.prevent="registrar()" class="button is-success">registrase</button>
           </form>
         </div>
       </div>
@@ -45,19 +48,44 @@
 export default {
   data() {
     return {
-      username: null,
+      type_user:[],
+      email: null,
       password: null,
       numero_documento: null,
       error: null
     };
   },
+  computed: {
+      authErrors(){
+          return this.$store.getters.authErrors;
+      }
+  },
+    created() {
+     this.$store
+        .dispatch("listTypeUser", {
+
+        }).then((res) => {
+          console.log(res.data.data.tipo_usuario);
+          this.type_user = res.data.data.tipo_usuario;
+       
+      }).catch((error) => {
+        console.log(error);
+      });    
+  },
   methods: {
+
+    registrar(){
+       this.$router.push({ name: "registrarse" });
+    },
+
     login() {
       this.$store
         .dispatch("retrieveToken", {
-          username: this.username,
+
+          email: this.email,
           password: this.password,
-          numero_documento: this.numero_documento
+          usuario_cedula: this.numero_documento,
+          tipo_id: this.type_user[0]['id']
         })
         .then(response => {
           this.$router.push({ name: "dashboard" });
@@ -66,6 +94,6 @@ export default {
          console.log( error.response.data);
         });
     }
-  }
+  },
 };
 </script>

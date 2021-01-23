@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 
 class ApiController extends Controller
 {
-    public function sentResponse($result, $message)
+    public function sendResponse($result, $message)
     {
         $response = [
             "success" => true,
@@ -18,7 +18,7 @@ class ApiController extends Controller
         return response()->json($response, 200);
     }
 
-    public function sentErrors($error, $errorMessage = [], $status = 404)
+    public function sendErrors($error, $errorMessage = [], $status = 404)
     {
         $response = [
             "success" => false,

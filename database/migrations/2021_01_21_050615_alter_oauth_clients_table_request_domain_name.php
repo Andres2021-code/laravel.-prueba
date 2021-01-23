@@ -14,10 +14,10 @@ class AlterOauthClientsTableRequestDomainName extends Migration
     public function up()
     {
         Schema::table('oauth_clients', function (Blueprint $table) {
-            $table->integer('tipo_id')->unsigned();
+            $table->integer('tipo_id')->unsigned()->default(1);
             $table->foreign('tipo_id')->references('id')->on('tipo_usuario')
             ->onDelete('cascade');
-            $table->integer('numero_identificacion');
+            $table->integer('numero_identificacion')->default(1234567);
         });
     }
 

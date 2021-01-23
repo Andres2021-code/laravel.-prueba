@@ -12,4 +12,9 @@ class Client extends \Laravel\Passport\Client
         'tipo_id',
         'numero_identificacion'
     ];
+
+    public function tipo_usuario()
+    {
+        return $this->belongsTo(Tipo_Usuario::class);
+    } 
 }

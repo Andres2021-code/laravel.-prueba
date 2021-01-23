@@ -3,10 +3,11 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 // Pages
-import NotFound from './views/NotFound'
-import Login from './views/Login'
-import Logout from './views/Logout'
-import Dashboard from './views/Dashboard'
+import NotFound from './views/component/NotFound'
+import Login from './views/component/auth/Login'
+import Logout from './views/component/auth/Logout'
+import Clientes from './views/component/Clientes'
+import Register from './views/component/auth/Register';
 
 // Routes
 const router = new VueRouter({
@@ -18,6 +19,16 @@ const router = new VueRouter({
             name: 'login',
             component: Login,
         },
+
+        {
+            path: '/registrarse',
+            name: 'registrarse',
+            component: Register,
+            meta: {
+                requiresAuth: false,
+            }
+        },
+
         {
             path: '/logout',
             name: 'logout',
@@ -26,10 +37,11 @@ const router = new VueRouter({
                 requiresAuth: true,
             }
         },
+     
         {
             path: '/dashboard',
             name: 'dashboard',
-            component: Dashboard,
+            component: Clientes,
             meta: {
                 requiresAuth: true,
             }
