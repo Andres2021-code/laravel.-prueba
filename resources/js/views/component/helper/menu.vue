@@ -19,9 +19,9 @@
         clientes
       </router-link>
 
-      <a class="navbar-item">
-        cuentas
-      </a>
+     <router-link to="/cuentas" class="navbar-item">
+        Cuentas
+      </router-link>
 
       <a class="navbar-item">
         consignaciones

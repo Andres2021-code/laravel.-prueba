@@ -10,6 +10,7 @@ import Clientes from './views/component/clientes/Clientes'
 import registercliente from './views/component/clientes/registercliente'
 import updatecliente from './views/component/clientes/updatecliente'
 import Register from './views/component/auth/Register';
+import Cuentas from "./views/component/cuentas/Cuentas";
 
 // Routes
 const router = new VueRouter({
@@ -73,6 +74,17 @@ const router = new VueRouter({
             path: '/cliente/editar/:id',
             name: 'updatecliente',
             component: updatecliente,
+            meta: {
+                requiresAuth: true,
+            }
+        },
+
+        //cuentas
+
+        {
+            path: '/cuentas',
+            name: 'cuentas',
+            component: Cuentas,
             meta: {
                 requiresAuth: true,
             }
