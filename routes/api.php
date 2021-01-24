@@ -23,6 +23,9 @@ Route::post('/login', 'API\AuthController@login');
 
 Route::get('cliente', 'ClienteController@index');
 Route::get('cliente/{id}', 'ClienteController@listOne');
+Route::get("listTypeDoc", "ClienteController@listTypeDoc");
+
+
 Route::post('cliente', 'ClienteController@store');
 Route::put('cliente', 'ClienteController@update');
 Route::delete('cliente/{id}', 'ClienteController@destroy');

@@ -6,7 +6,9 @@ Vue.use(VueRouter)
 import NotFound from './views/component/NotFound'
 import Login from './views/component/auth/Login'
 import Logout from './views/component/auth/Logout'
-import Clientes from './views/component/Clientes'
+import Clientes from './views/component/clientes/Clientes'
+import registercliente from './views/component/clientes/registercliente'
+import updatecliente from './views/component/clientes/updatecliente'
 import Register from './views/component/auth/Register';
 
 // Routes
@@ -54,6 +56,26 @@ const router = new VueRouter({
         { 
             path: '*', 
             redirect: '/404', 
+        },
+
+        //clientes
+
+        {
+            path: '/cliente/register',
+            name: 'registercliente',
+            component: registercliente,
+            meta: {
+                requiresAuth: true,
+            }
+        },
+
+        {
+            path: '/cliente/editar/:id',
+            name: 'updatecliente',
+            component: updatecliente,
+            meta: {
+                requiresAuth: true,
+            }
         },
     ],
 });

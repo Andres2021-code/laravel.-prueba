@@ -30,6 +30,18 @@ class ClienteController extends ApiController
             return $this->sendResponse($data, "clientes recuperados correctamente");
     }
 
+    public function listTypeDoc(){
+        $data = [];
+
+        $tpd = DB::table("tipo_documento")
+            ->select("tipo_documento.id", "tipo_documento.nombre_doc")
+            ->get();
+  
+        $data['tipo_documento'] = $tpd;
+  
+        return $this->sendResponse($data, "tipo de documentos recuperadss correctamente");
+    }
+
     /**
      * Show the form for creating a new resource.
      *
