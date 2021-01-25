@@ -37,9 +37,9 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <a class="button is-primary">
+          <router-link to="/logout" class="button is-primary">
             <strong>Cerrar sesión</strong>
-          </a>
+          </router-link>
          
         </div>
       </div>
@@ -52,6 +52,8 @@
 <script>
 export default {
     name: 'menu_iems_pages',
+
+ 
 }
 </script>
 

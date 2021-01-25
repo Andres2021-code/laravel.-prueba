@@ -30,7 +30,14 @@ const router = new VueRouter({
             name: 'login',
             component: Login,
         },
-
+        {
+            path: '/logout',
+            name: 'logout',
+            component: Logout,
+            meta: {
+                requiresAuth: true,
+            }
+        },
         {
             path: '/registrarse',
             name: 'registrarse',

@@ -17,7 +17,17 @@ class AuthController extends ApiController
     $user = Auth::user();
     return $this->sendResponse($user, "usuarios en session");
   }
+  
+  public function logout()
+  {
+      auth()->user()->tokens->each(function ($token, $key) {
+          $token->delete();
+      });
+      
+      return response()->json('Logged out successfully', 200);
+  }
 
+  
   public function register(Request $request)
   {
       

@@ -23901,7 +23901,25 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _vm._m(1)
+            _c("div", { staticClass: "navbar-end" }, [
+              _c("div", { staticClass: "navbar-item" }, [
+                _c(
+                  "div",
+                  { staticClass: "buttons" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "button is-primary",
+                        attrs: { to: "/logout" }
+                      },
+                      [_c("strong", [_vm._v("Cerrar sesión")])]
+                    )
+                  ],
+                  1
+                )
+              ])
+            ])
           ]
         )
       ]
@@ -23937,20 +23955,6 @@ var staticRenderFns = [
           _c("span", { attrs: { "aria-hidden": "true" } })
         ]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "navbar-end" }, [
-      _c("div", { staticClass: "navbar-item" }, [
-        _c("div", { staticClass: "buttons" }, [
-          _c("a", { staticClass: "button is-primary" }, [
-            _c("strong", [_vm._v("Cerrar sesión")])
-          ])
-        ])
-      ])
     ])
   }
 ]
@@ -41178,6 +41182,13 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/',
     name: 'login',
     component: _views_component_auth_Login__WEBPACK_IMPORTED_MODULE_3__["default"]
+  }, {
+    path: '/logout',
+    name: 'logout',
+    component: _views_component_auth_Logout__WEBPACK_IMPORTED_MODULE_4__["default"],
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/registrarse',
     name: 'registrarse',

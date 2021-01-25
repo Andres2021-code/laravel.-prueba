@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::post("register", "API\AuthController@register");
+Route::middleware('auth:api')->post('/logout', 'API\AuthController@logout');
+
 Route::get("listtypeuser", "API\AuthController@getTipoUsuario");
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
