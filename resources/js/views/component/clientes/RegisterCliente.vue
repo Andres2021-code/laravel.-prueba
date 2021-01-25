@@ -118,7 +118,7 @@ export default {
           this.$router.push({ name: "dashboard" });
         })
         .catch(error => {
-         console.log( error.response.data);
+         this.error = error.response.data;
         });
     }
   },

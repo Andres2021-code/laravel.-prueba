@@ -130,7 +130,7 @@ export default {
         // this.$router.push({ name: "cuentas" });
         })
         .catch(error => {
-         console.log( error.response.this);
+         this.error = error.response.data;
         });
     }
   },

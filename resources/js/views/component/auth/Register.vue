@@ -91,7 +91,7 @@ export default {
           this.$router.push({ name: "login" });
         })
         .catch(error => {
-         console.log( error.response.data);
+         this.error = error.response.data;
         });
     }
   },

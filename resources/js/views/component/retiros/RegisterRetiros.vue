@@ -125,7 +125,7 @@ export default {
           //this.$router.push({ name: "retiros" });
         })
         .catch(error => {
-         console.log( error.response.data);
+         this.error = error.response.data;
         });
     }
   },

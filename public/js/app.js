@@ -2174,7 +2174,7 @@ __webpack_require__.r(__webpack_exports__);
           name: "login"
         });
       })["catch"](function (error) {
-        console.log(error.response.data);
+        _this2.error = error.response.data;
       });
     }
   }
@@ -2415,7 +2415,7 @@ __webpack_require__.r(__webpack_exports__);
           name: "dashboard"
         });
       })["catch"](function (error) {
-        console.log(error.response.data);
+        _this2.error = error.response.data;
       });
     }
   }
@@ -2558,7 +2558,7 @@ __webpack_require__.r(__webpack_exports__);
           name: "dashboard"
         });
       })["catch"](function (error) {
-        console.log(error.response.data);
+        _this2.error = error.response.data;
       });
     }
   }
@@ -2785,6 +2785,8 @@ __webpack_require__.r(__webpack_exports__);
       this.id_usuario = event.target.value;
     },
     register: function register() {
+      var _this2 = this;
+
       this.$store.dispatch("registerConsignaciones", {
         codigo_consignaciones: this.codigo_consignaciones,
         valor_consignacion: this.valor_consignacion,
@@ -2794,7 +2796,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         console.log(response); //this.$router.push({ name: "consignaciones" });
       })["catch"](function (error) {
-        console.log(error.response.data);
+        _this2.error = error.response.data;
       });
     }
   }
@@ -2944,7 +2946,7 @@ __webpack_require__.r(__webpack_exports__);
           name: "consignaciones"
         });
       })["catch"](function (error) {
-        console.log(error.response.data);
+        _this2.error = error.response.data;
       });
     }
   }
@@ -3180,6 +3182,8 @@ __webpack_require__.r(__webpack_exports__);
       this.id_cliente = event.target.value;
     },
     register: function register() {
+      var _this2 = this;
+
       this.$store.dispatch("registerCuenta", {
         numero_cuenta: this.numero_cuenta,
         id_cliente: this.id_cliente,
@@ -3190,7 +3194,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         console.log(response); // this.$router.push({ name: "cuentas" });
       })["catch"](function (error) {
-        console.log(error.response["this"]);
+        _this2.error = error.response.data;
       });
     }
   }
@@ -3344,7 +3348,7 @@ __webpack_require__.r(__webpack_exports__);
           name: "cuentas"
         });
       })["catch"](function (error) {
-        console.log(error.response.data);
+        _this2.error = error.response.data;
       });
     }
   }
@@ -3637,6 +3641,8 @@ __webpack_require__.r(__webpack_exports__);
       this.id_usuario = event.target.value;
     },
     register: function register() {
+      var _this2 = this;
+
       this.$store.dispatch("registerRetiros", {
         codigo_retiro: this.codigo_retiro,
         valor_retiro: this.valor_retiro,
@@ -3646,7 +3652,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         console.log(response); //this.$router.push({ name: "retiros" });
       })["catch"](function (error) {
-        console.log(error.response.data);
+        _this2.error = error.response.data;
       });
     }
   }
@@ -3774,6 +3780,8 @@ __webpack_require__.r(__webpack_exports__);
       this.id_usuario = event.target.value;
     },
     register: function register() {
+      var _this2 = this;
+
       if (this.id_cuenta == null) {
         this.id_cuenta = this.retiro.id_cuenta;
       }
@@ -3792,7 +3800,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         console.log(response); //  this.$router.push({ name: "retiros" });
       })["catch"](function (error) {
-        console.log(error.response.data);
+        _this2.error = error.response.data;
       });
     }
   }
