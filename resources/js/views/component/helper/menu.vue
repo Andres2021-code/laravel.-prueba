@@ -23,13 +23,13 @@
         Cuentas
       </router-link>
 
-      <a class="navbar-item">
+      <router-link to="/consignaciones" class="navbar-item">
         consignaciones
-      </a>
+      </router-link>
 
-     <a class="navbar-item">
-        retiros
-      </a>
+     <router-link to="/retiros" class="navbar-item">
+        Retiros
+      </router-link>
 
      
     </div>

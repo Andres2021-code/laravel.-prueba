@@ -9,9 +9,24 @@ import axios from 'axios'
   }
 
   const actions = {
-    listCuenta(){
+    listConsignaciones(){
         return new Promise((resolve, reject) => {
-        axios.get('/api/cuenta', {
+        axios.get('/api/consignaciones', {
+  
+        }).then(response => {
+         // console.log(response.data.data.tipo_usuario)  
+          resolve(response)
+        })
+        .catch(error => {
+          console.log(error)
+          reject(error)
+        })})
+      
+        
+      },
+      listConsignacionesUser(){
+        return new Promise((resolve, reject) => {
+        axios.get('/api/consignaciones/user', {
   
         }).then(response => {
          // console.log(response.data.data.tipo_usuario)  
@@ -26,9 +41,9 @@ import axios from 'axios'
       },
 
 
-      listOne(context, data){
+      listOneConsignaciones(context, data){
         return new Promise((resolve, reject) => {
-          axios.get('/api/cuenta/'+ data.id, {
+          axios.get('/api/consignaciones/'+ data.id, {
     
           }).then(response => {
            // console.log(response.data.data.tipo_usuario)  
@@ -42,17 +57,15 @@ import axios from 'axios'
           
       },
      
-      registerCuenta(context, data){
+      registerConsignaciones(context, data){
       
         return new Promise((resolve, reject) => {
-          axios.post('/api/cuenta', {
-            nombres: data.nombre,
-            apellidos: data.apellido,
-            numero_cedula: data.numero_cedula,
-            direccion: data.direccion,
-            telefono: data.telefono,
-            email: data.email,
-            tipo_doc: Number(data.tipo_doc)
+          axios.post('/api/consignaciones', {
+            codigo_consignaciones: data.codigo_consignaciones,
+            valor_consignacion: data.valor_consignacion,
+            descripcion_consignacion: data.descripcion_consignacion,
+           id_usuario: Number(data.id_usuario),
+           id_cuenta: Number(data.id_cuenta)
           })
             .then(response => {
               resolve(response)
@@ -64,18 +77,15 @@ import axios from 'axios'
         })
       },
       
-      updateCuenta(context, data){
-      
+      updateConsignaciones(context, data){      
         return new Promise((resolve, reject) => {
-          axios.put('/api/cuenta', {
+          axios.put('/api/consignaciones', {
             id: data.id,
-            nombres: data.nombre,
-            apellidos: data.apellido,
-            numero_cedula: data.numero_cedula,
-            direccion: data.direccion,
-            telefono: data.telefono,
-            email: data.email,
-            tipo_doc: Number(data.tipo_doc)
+            codigo_consignaciones: data.codigo_consignaciones,
+            valor_consignacion: data.valor_consignacion,
+            descripcion_consignacion: data.descripcion_consignacion,
+           id_usuario: Number(data.id_usuario),
+           id_cuenta: Number(data.id_cuenta)
           })
             .then(response => {
              
@@ -89,9 +99,9 @@ import axios from 'axios'
       },
       
       
-      deleteCuenta(context, data){
+      deleteConsignaciones(context, data){
         return new Promise((resolve, reject) => {
-          axios.delete('/api/cuenta/'+ data.id, {
+          axios.delete('/api/consignaciones/'+ data.id, {
 
           }).then(response => {
            // console.log(response.data.data.tipo_usuario)  

@@ -66,8 +66,8 @@ export default {
         .dispatch("listCuenta", {
 
         }).then((res) => {
-          console.log(res[0].data.data.cuentas)
-          this.cuentas = res[0].data.data.cuentas;
+          console.log(res.data.data.cuentas)
+          this.cuentas = res.data.data.cuentas;
        
       }).catch((error) => {
         console.log(error);

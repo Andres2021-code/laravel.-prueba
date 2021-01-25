@@ -20,7 +20,7 @@ class ClienteController extends ApiController
             $data = [];
             $clientes = DB::table("clientes")
                 ->join('tipo_documento' , 'tipo_documento.id' , '=' ,'clientes.tipo_doc')
-                ->select("clientes.id", "tipo_documento.nombre_doc", "clientes.numero_cedula", "clientes.nombres", "clientes.apellidos", "clientes.direccion","clientes.telefono", "clientes.email")             
+                ->select("clientes.id", "clientes.tipo_doc", "tipo_documento.nombre_doc", "clientes.numero_cedula", "clientes.nombres", "clientes.apellidos", "clientes.direccion","clientes.telefono", "clientes.email")             
                 ->get();
                
 

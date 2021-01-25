@@ -23,7 +23,7 @@ import axios from 'axios'
       },
 
 
-      listOne(context, data){
+      listOneCuenta(context, data){
         return new Promise((resolve, reject) => {
           axios.get('/api/cuenta/'+ data.id, {
     
@@ -40,16 +40,15 @@ import axios from 'axios'
       },
      
       registerCuenta(context, data){
-      
-        return new Promise((resolve, reject) => {
+
+     return new Promise((resolve, reject) => {
           axios.post('/api/cuenta', {
-            nombres: data.nombre,
-            apellidos: data.apellido,
-            numero_cedula: data.numero_cedula,
-            direccion: data.direccion,
-            telefono: data.telefono,
-            email: data.email,
-            tipo_doc: Number(data.tipo_doc)
+            numero_cuenta: data.numero_cuenta,
+            id_cliente: data.id_cliente,
+            saldo: data.saldo,
+            activa: data.activa,
+            clave_cuenta: data.clave_cuenta,
+            descripcion: data.descripcion
           })
             .then(response => {
               resolve(response)
@@ -61,18 +60,17 @@ import axios from 'axios'
         })
       },
       
-      updateCuenta(context, data){
+      updateCuentas(context, data){
       
         return new Promise((resolve, reject) => {
           axios.put('/api/cuenta', {
             id: data.id,
-            nombres: data.nombre,
-            apellidos: data.apellido,
-            numero_cedula: data.numero_cedula,
-            direccion: data.direccion,
-            telefono: data.telefono,
-            email: data.email,
-            tipo_doc: Number(data.tipo_doc)
+            numero_cuenta: data.numero_cuenta,
+            id_cliente: Number(data.id_cliente),
+            saldo: data.saldo,
+            activa: data.activa,
+            clave_cuenta: data.clave_cuenta,
+            descripcion: data.descripcion
           })
             .then(response => {
              

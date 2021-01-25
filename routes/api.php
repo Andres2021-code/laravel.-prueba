@@ -30,9 +30,21 @@ Route::delete('cliente/{id}', 'ClienteController@destroy');
 
 Route::get('cuenta', 'CuentaController@index');
 Route::get('cuenta/{id}', 'CuentaController@listOne');
-Route::get("listTypeDoc", "CuentaController@listTypeDoc");
 Route::post('cuenta', 'CuentaController@store');
 Route::put('cuenta', 'CuentaController@update');
 Route::delete('cuenta/{id}', 'CuentaController@destroy');
+
+Route::get('consignaciones', 'ConsignacionesController@index');
+Route::get('consignaciones/user', 'ConsignacionesController@listUsers');
+Route::get('consignaciones/{id}', 'ConsignacionesController@listOne');
+Route::post('consignaciones', 'ConsignacionesController@store');
+Route::put('consignaciones', 'ConsignacionesController@update');
+Route::delete('consignaciones/{id}', 'ConsignacionesController@destroy');
+
+Route::get('retiros', 'RetiroController@index');
+Route::get('retiros/{id}', 'RetiroController@listOne');
+Route::post('retiros', 'RetiroController@store');
+Route::put('retiros', 'RetiroController@update');
+Route::delete('retiros/{id}', 'RetiroController@destroy');
 
 //Route::middleware('auth:api')->post('/logout', 'API\AuthController@logout');

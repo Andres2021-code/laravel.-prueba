@@ -5,39 +5,37 @@
 <div class="container">
 <div class="table-container">
   <div class="buttons">
-    <router-link to="/cliente/register" class="button is-success">
+    <router-link to="/consignaciones/register" class="button is-success">
       registrar
     </router-link>    
   </div>
   <table class="table">
   <thead>
       <tr>
-        <th>Tpo de documento</th>
-        <th>numero de cedula</th>
-        <th>apellido</th>
-        <th>nombre</th>
-        <th>direccion</th>
-        <th>telefono</th>
-        <th>correo</th>
+        <th>codigo</th>
+        <th>usuario</th>
+        <th>cliente</th>
+  
+        <th>valor consignacion</th>
+        <th>descripcione</th>
         <th>acciones</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-          <tr v-for="cliente in clientes" :key="cliente.id">
-                    <td>{{cliente.nombre_doc}}</td>
-                    <td>{{cliente.numero_cedula}}</td>
-                    <td>{{cliente.apellidos}}</td>
-                    <td>{{cliente.nombres}}</td>
-                    <td>{{cliente.direccion}}</td>
-                    <td>{{cliente.telefono}}</td>
-                    <td>{{cliente.email}}</td>
+          <tr v-for="consignacion in consignaciones" :key="consignacion.id">
+                    <td>{{consignacion.codigo_consignaciones}}</td>
+                    <td>{{consignacion.nombre_usuario}}</td>
+                    <td>{{consignacion.descripcion}}</td>
+                    <td>{{consignacion.valor_consignacion}}</td>
+                    <td>{{consignacion.descripcion_consignacion}}</td>
+                   
                     <td>  
                      <div class="buttons">
-                        <router-link :to="{ name: 'updatecliente', params: { id: cliente.id } }"  class="button is-primary">
+                        <router-link :to="{ name: 'updateConsignaciones', params: { id: consignacion.id } }"  class="button is-primary">
                           editar
                         </router-link>                        
-                        <a @click="deleteCliente(cliente.id)" class="button is-danger">
+                        <a @click="deleteConsignaciones(consignacion.id)" class="button is-danger">
                           eliminar
                         </a>
                     </div> 
@@ -58,16 +56,16 @@ import menu_iems_pages from "../helper/menu"
 export default {
    data() {
     return {
-      clientes:[],
+      consignaciones:[],
     };
   },
  created() {
      this.$store
-        .dispatch("listCliente", {
+        .dispatch("listConsignaciones", {
 
         }).then((res) => {
     
-          this.clientes = res.data.data.clientes;
+          this.consignaciones = res.data.data.consignaciones;
        
       }).catch((error) => {
         console.log(error);
@@ -81,19 +79,19 @@ export default {
   methods: {
 
     
-    deleteCliente(id){
+    deleteConsignaciones(id){
 
-      let indexOfArrayItem = this.clientes.findIndex((i) => i.id === id);
+      let indexOfArrayItem = this.consignaciones.findIndex((i) => i.id === id);
 
-       if (window.confirm("Estas seguro de eliminar este cliente?")) {
+       if (window.confirm("Estas seguro de eliminar este consignaciones?")) {
         this.$store
-        .dispatch("deleteCliente", {
+        .dispatch("deleteConsignaciones", {
 
           id: id,
       
         })
         .then(response => {
-            this.clientes.splice(indexOfArrayItem, 1);
+            this.consignaciones.splice(indexOfArrayItem, 1);
 
         })
         .catch(error => {

@@ -9,9 +9,41 @@ import axios from 'axios'
   }
 
   const actions = {
-    listCuenta(){
-        return new Promise((resolve, reject) => {
-        axios.get('/api/cuenta', {
+    listRetiros(){
+      return new Promise((resolve, reject) => {
+      axios.get('/api/retiros', {
+
+      }).then(response => {
+       // console.log(response.data.data.tipo_usuario)  
+        resolve(response)
+      })
+      .catch(error => {
+        console.log(error)
+        reject(error)
+      })})
+    
+      
+    },
+    listretiRosUser(){
+      return new Promise((resolve, reject) => {
+      axios.get('/api/retiros/user', {
+
+      }).then(response => {
+       // console.log(response.data.data.tipo_usuario)  
+        resolve(response)
+      })
+      .catch(error => {
+        console.log(error)
+        reject(error)
+      })})
+    
+      
+    },
+
+
+    listOneRetiros(context, data){
+      return new Promise((resolve, reject) => {
+        axios.get('/api/retiros/'+ data.id, {
   
         }).then(response => {
          // console.log(response.data.data.tipo_usuario)  
@@ -23,85 +55,63 @@ import axios from 'axios'
         })})
       
         
-      },
+    },
+   
+    registerRetiros(context, data){
 
-
-      listOne(context, data){
-        return new Promise((resolve, reject) => {
-          axios.get('/api/cuenta/'+ data.id, {
+      return new Promise((resolve, reject) => {
+        axios.post('/api/retiros', {
+          codigo_retiro: data.codigo_retiro,
+          valor_retiro: data.valor_retiro,
+          descripcion: data.descripcion,
+         id_usuario: Number(data.id_usuario),
+         id_cuenta: Number(data.id_cuenta)
+        })
+          .then(response => {
+            resolve(response)
+          })
+          .catch(error => {
+            //console.log(error)
+            reject(error)
+          })
+      })
+    },
     
-          }).then(response => {
-           // console.log(response.data.data.tipo_usuario)  
+    updateRetiros(context, data){      
+      return new Promise((resolve, reject) => {
+        axios.put('/api/retiros', {
+          id: data.id,
+          codigo_retiro: data.codigo_retiro,
+          valor_retiro: data.valor_retiro,
+          descripcion: data.descripcion,
+         id_usuario: Number(data.id_usuario),
+         id_cuenta: Number(data.id_cuenta)
+        })
+          .then(response => {
+           
             resolve(response)
           })
           .catch(error => {
-            console.log(error)
+            //console.log(error)
             reject(error)
-          })})
-        
-          
-      },
-     
-      registerCuenta(context, data){
-      
-        return new Promise((resolve, reject) => {
-          axios.post('/api/cuenta', {
-            nombres: data.nombre,
-            apellidos: data.apellido,
-            numero_cedula: data.numero_cedula,
-            direccion: data.direccion,
-            telefono: data.telefono,
-            email: data.email,
-            tipo_doc: Number(data.tipo_doc)
           })
-            .then(response => {
-              resolve(response)
-            })
-            .catch(error => {
-              //console.log(error)
-              reject(error)
-            })
-        })
-      },
-      
-      updateCuenta(context, data){
-      
-        return new Promise((resolve, reject) => {
-          axios.put('/api/cuenta', {
-            id: data.id,
-            nombres: data.nombre,
-            apellidos: data.apellido,
-            numero_cedula: data.numero_cedula,
-            direccion: data.direccion,
-            telefono: data.telefono,
-            email: data.email,
-            tipo_doc: Number(data.tipo_doc)
-          })
-            .then(response => {
-             
-              resolve(response)
-            })
-            .catch(error => {
-              //console.log(error)
-              reject(error)
-            })
-        })
-      },
-      
-      
-      deleteCuenta(context, data){
-        return new Promise((resolve, reject) => {
-          axios.delete('/api/cuenta/'+ data.id, {
+      })
+    },
+    
+    
+    deleteRetiros(context, data){
+      return new Promise((resolve, reject) => {
+        axios.delete('/api/retiros/'+ data.id, {
 
-          }).then(response => {
-           // console.log(response.data.data.tipo_usuario)  
-            resolve(response)
-          })
-          .catch(error => {
-            console.log(error)
-            reject(error)
-          })})        
-      },
+        }).then(response => {
+         // console.log(response.data.data.tipo_usuario)  
+          resolve(response)
+        })
+        .catch(error => {
+          console.log(error)
+          reject(error)
+        })})        
+    },
   }
 
 export default {

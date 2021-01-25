@@ -15,7 +15,7 @@ class CuentaController extends ApiController
         
             $cuentas = DB::table("cuentas")
                 ->join('clientes' , 'clientes.id' , '=' ,'cuentas.id_cliente')
-                ->select("cuentas.id", "cuentas.numero_cuenta", "clientes.nombres", "cuentas.saldo", "cuentas.activa", "cuentas.clave_cuenta", "cuentas.descripcion")             
+                ->select("cuentas.id", "cuentas.id_cliente", "cuentas.numero_cuenta", "clientes.nombres", "cuentas.saldo", "cuentas.activa", "cuentas.clave_cuenta", "cuentas.descripcion")             
                 ->get();
                
             $data['cuentas'] = $cuentas;
@@ -85,8 +85,8 @@ class CuentaController extends ApiController
     
     public function update(Request $request)
     {
-        $Cuenta = Cuenta::find($request->get("id"));
-        if($Cuenta === null){
+        $cuenta = Cuenta::find($request->get("id"));
+        if($cuenta === null){
             return $this->sendErrors("Error en los datos", ["la Cuenta no existe"], 200);
         }
 
@@ -103,19 +103,19 @@ class CuentaController extends ApiController
             return response(['error' => $validator->errors(), 'Validation Error']);
         }
 
-        $Cuenta->numero_cuenta = $request->get("numero_cuenta");
-        $Cuenta->id_cliente = $request->get("id_cliente");
-        $Cuenta->saldo = $request->get("saldo");
-        $Cuenta->activa = $request->get("activa");
-        $Cuenta->clave_cuenta = $request->get("clave_cuenta");
-        $Cuenta->descripcion = $request->get("descripcion");
-        $Cuenta->save();
+        $cuenta->numero_cuenta = $request->get("numero_cuenta");
+        $cuenta->id_cliente = $request->get("id_cliente");
+        $cuenta->saldo = $request->get("saldo");
+        $cuenta->activa = $request->get("activa");
+        $cuenta->clave_cuenta = $request->get("clave_cuenta");
+        $cuenta->descripcion = $request->get("descripcion");
+        $cuenta->save();
 
         $data = [
-            'cuentas' => $Cuenta
+            'cuenta' => $cuenta
         ];
 
-        return $this->sendResponse($data, "cuentas modificado correctamente");
+        return $this->sendResponse($data, "cuenta modificado correctamente");
     }
 
     /**

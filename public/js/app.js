@@ -2138,6 +2138,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       type_user: [],
+      user_id: null,
       nombre_usuario: null,
       email: null,
       password: null,
@@ -2156,16 +2157,18 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
+    onChange: function onChange(event) {
+      this.user_id = event.target.value;
+    },
     register: function register() {
       var _this2 = this;
 
-      console.log(this.type_user[0]['id']);
       this.$store.dispatch("registerUser", {
         email: this.email,
         password: this.password,
         nombre_usuario: this.nombre_usuario,
         usuario_cedula: this.usuario_cedula,
-        tipo_id: this.type_user[0]['id']
+        tipo_id: this.user_id
       }).then(function (response) {
         _this2.$router.push({
           name: "login"
@@ -2369,6 +2372,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       type_doc: [],
+      doc_id: null,
       nombre: null,
       apellido: null,
       numero_cedula: null,
@@ -2392,10 +2396,12 @@ __webpack_require__.r(__webpack_exports__);
     "menu-item": _helper_menu__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   methods: {
+    onChange: function onChange(event) {
+      this.doc_id = event.target.value;
+    },
     register: function register() {
       var _this2 = this;
 
-      console.log(this.type_doc[0]['id']);
       this.$store.dispatch("registerCliente", {
         nombre: this.nombre,
         apellido: this.apellido,
@@ -2403,7 +2409,7 @@ __webpack_require__.r(__webpack_exports__);
         direccion: this.direccion,
         telefono: this.telefono,
         email: this.email,
-        tipo_doc: this.type_doc[0]['id']
+        tipo_doc: this.doc_id
       }).then(function (response) {
         _this2.$router.push({
           name: "dashboard"
@@ -2502,6 +2508,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       type_doc: [],
+      doc_id: null,
       cliente: [],
       error: null
     };
@@ -2527,8 +2534,15 @@ __webpack_require__.r(__webpack_exports__);
     "menu-item": _helper_menu__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   methods: {
+    onChange: function onChange(event) {
+      this.doc_id = event.target.value;
+    },
     register: function register() {
       var _this2 = this;
+
+      if (this.doc_id == null) {
+        this.doc_id = this.cliente.tipo_doc;
+      }
 
       this.$store.dispatch("updateCliente", {
         id: this.cliente.id,
@@ -2538,10 +2552,396 @@ __webpack_require__.r(__webpack_exports__);
         direccion: this.cliente.direccion,
         telefono: this.cliente.telefono,
         email: this.cliente.email,
-        tipo_doc: this.type_doc[0]['id']
+        tipo_doc: this.doc_id
       }).then(function (response) {
         _this2.$router.push({
           name: "dashboard"
+        });
+      })["catch"](function (error) {
+        console.log(error.response.data);
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/consignaciones/Consignaciones.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/component/consignaciones/Consignaciones.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helper_menu__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/menu */ "./resources/js/views/component/helper/menu.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      consignaciones: []
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    this.$store.dispatch("listConsignaciones", {}).then(function (res) {
+      _this.consignaciones = res.data.data.consignaciones;
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  },
+  components: {
+    "menu-item": _helper_menu__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  methods: {
+    deleteConsignaciones: function deleteConsignaciones(id) {
+      var _this2 = this;
+
+      var indexOfArrayItem = this.consignaciones.findIndex(function (i) {
+        return i.id === id;
+      });
+
+      if (window.confirm("Estas seguro de eliminar este consignaciones?")) {
+        this.$store.dispatch("deleteConsignaciones", {
+          id: id
+        }).then(function (response) {
+          _this2.consignaciones.splice(indexOfArrayItem, 1);
+        })["catch"](function (error) {
+          console.log(error);
+        });
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/consignaciones/registerConsignaciones.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/component/consignaciones/registerConsignaciones.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helper_menu__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/menu */ "./resources/js/views/component/helper/menu.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      cuentas: [],
+      users: [],
+      id_cuenta: null,
+      id_usuario: null,
+      codigo_consignaciones: null,
+      valor_consignacion: null,
+      descripcion_consignacion: null,
+      error: null
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    this.$store.dispatch("listCuenta", {}).then(function (res) {
+      console.log(res.data.data.cuentas);
+      _this.cuentas = res.data.data.cuentas;
+    })["catch"](function (error) {
+      console.log(error);
+    });
+    this.$store.dispatch("listConsignacionesUser", {}).then(function (res) {
+      console.log(res.data.data.users);
+      _this.users = res.data.data.users;
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  },
+  components: {
+    "menu-item": _helper_menu__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  methods: {
+    onChangeCuenta: function onChangeCuenta(event) {
+      this.id_cuenta = event.target.value;
+    },
+    onChangeUsuario: function onChangeUsuario(event) {
+      this.id_usuario = event.target.value;
+    },
+    register: function register() {
+      this.$store.dispatch("registerConsignaciones", {
+        codigo_consignaciones: this.codigo_consignaciones,
+        valor_consignacion: this.valor_consignacion,
+        descripcion_consignacion: this.descripcion_consignacion,
+        id_usuario: this.id_usuario,
+        id_cuenta: this.id_usuario
+      }).then(function (response) {
+        console.log(response); //this.$router.push({ name: "consignaciones" });
+      })["catch"](function (error) {
+        console.log(error.response.data);
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/consignaciones/updateConsignaciones.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/component/consignaciones/updateConsignaciones.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helper_menu__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/menu */ "./resources/js/views/component/helper/menu.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      cuentas: [],
+      users: [],
+      id_cuenta: null,
+      id_usuario: null,
+      consignacion: [],
+      error: null
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    this.$store.dispatch("listCuenta", {}).then(function (res) {
+      console.log(res.data.data.cuentas);
+      _this.cuentas = res.data.data.cuentas;
+    })["catch"](function (error) {
+      console.log(error);
+    });
+    this.$store.dispatch("listConsignacionesUser", {}).then(function (res) {
+      console.log(res.data.data.users);
+      _this.users = res.data.data.users;
+    })["catch"](function (error) {
+      console.log(error);
+    });
+    this.$store.dispatch("listOneConsignaciones", {
+      id: this.$route.params.id
+    }).then(function (response) {
+      _this.consignacion = response.data.data.consignaciones;
+    })["catch"](function (error) {
+      console.log(error.response.data);
+    });
+  },
+  components: {
+    "menu-item": _helper_menu__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  methods: {
+    onChangeCuenta: function onChangeCuenta(event) {
+      this.id_cuenta = event.target.value;
+    },
+    onChangeUsuario: function onChangeUsuario(event) {
+      this.id_usuario = event.target.value;
+    },
+    register: function register() {
+      var _this2 = this;
+
+      if (this.id_cuenta == null) {
+        this.id_cuenta = this.consignacion.id_cuenta;
+      }
+
+      if (this.id_usuario == null) {
+        this.id_usuario = this.consignacion.id_usuario;
+      }
+
+      this.$store.dispatch("updateConsignaciones", {
+        id: this.consignacion.id,
+        codigo_consignaciones: this.consignacion.codigo_consignaciones,
+        valor_consignacion: this.consignacion.valor_consignacion,
+        descripcion_consignacion: this.consignacion.descripcion_consignacion,
+        id_usuario: this.id_usuario,
+        id_cuenta: this.id_cuenta
+      }).then(function (response) {
+        _this2.$router.push({
+          name: "consignaciones"
         });
       })["catch"](function (error) {
         console.log(error.response.data);
@@ -2627,8 +3027,8 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.$store.dispatch("listCuenta", {}).then(function (res) {
-      console.log(res[0].data.data.cuentas);
-      _this.cuentas = res[0].data.data.cuentas;
+      console.log(res.data.data.cuentas);
+      _this.cuentas = res.data.data.cuentas;
     })["catch"](function (error) {
       console.log(error);
     });
@@ -2653,6 +3053,299 @@ __webpack_require__.r(__webpack_exports__);
           console.log(error);
         });
       }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/cuentas/registerCuenta.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/component/cuentas/registerCuenta.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helper_menu__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/menu */ "./resources/js/views/component/helper/menu.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      numero_cuenta: null,
+      clientes: [],
+      id_cliente: null,
+      saldo: null,
+      activa: null,
+      mainActiva: [{
+        activa: '1',
+        descripcion: 'Activa'
+      }, {
+        activa: '2',
+        descripcion: 'Inactiva'
+      }],
+      clave_cuenta: null,
+      descripcion: null,
+      error: null
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    this.$store.dispatch("listCliente", {}).then(function (res) {
+      _this.clientes = res.data.data.clientes;
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  },
+  components: {
+    "menu-item": _helper_menu__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  methods: {
+    check: function check(e) {
+      if (e.target.checked) {
+        console.log(e.target.value);
+      }
+    },
+    onChange: function onChange(event) {
+      this.id_cliente = event.target.value;
+    },
+    register: function register() {
+      this.$store.dispatch("registerCuenta", {
+        numero_cuenta: this.numero_cuenta,
+        id_cliente: this.id_cliente,
+        saldo: this.saldo,
+        activa: this.mainActiva.activa,
+        clave_cuenta: this.clave_cuenta,
+        descripcion: this.descripcion
+      }).then(function (response) {
+        console.log(response); // this.$router.push({ name: "cuentas" });
+      })["catch"](function (error) {
+        console.log(error.response["this"]);
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/cuentas/updateCuenta.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/component/cuentas/updateCuenta.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helper_menu__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/menu */ "./resources/js/views/component/helper/menu.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      clientes: [],
+      cliente_id: null,
+      cuentas: [],
+      mainActiva: [{
+        activa: '1',
+        descripcion: 'Activa'
+      }, {
+        activa: '2',
+        descripcion: 'Inactiva'
+      }],
+      checked: null,
+      error: null
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    this.$store.dispatch("listCliente", {}).then(function (res) {
+      _this.clientes = res.data.data.clientes;
+    })["catch"](function (error) {
+      _this.error = error;
+    });
+    this.$store.dispatch("listOneCuenta", {
+      id: this.$route.params.id
+    }).then(function (response) {
+      _this.cuentas = response.data.data.cuenta;
+      _this.checked = _this.cuentas.activa;
+    })["catch"](function (error) {
+      console.log(error.response.data);
+    });
+  },
+  components: {
+    "menu-item": _helper_menu__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  methods: {
+    onChange: function onChange(event) {
+      this.cliente_id = event.target.value;
+    },
+    check: function check(e) {
+      if (e.target.checked) {
+        this.cuentas.activa = e.target.value;
+      }
+    },
+    register: function register() {
+      var _this2 = this;
+
+      if (this.cliente_id == null) {
+        this.cliente_id = this.cuentas.id_cliente;
+      }
+
+      this.$store.dispatch("updateCuentas", {
+        id: this.cuentas.id,
+        numero_cuenta: this.cuentas.numero_cuenta,
+        id_cliente: this.cliente_id,
+        saldo: this.cuentas.saldo,
+        activa: this.cuentas.activa,
+        clave_cuenta: this.cuentas.clave_cuenta,
+        descripcion: this.cuentas.descripcion
+      }).then(function (response) {
+        _this2.$router.push({
+          name: "cuentas"
+        });
+      })["catch"](function (error) {
+        console.log(error.response.data);
+      });
     }
   }
 });
@@ -2721,6 +3414,388 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'menu_iems_pages'
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/retiros/Retiros.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/component/retiros/Retiros.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helper_menu__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/menu */ "./resources/js/views/component/helper/menu.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      retiros: []
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    this.$store.dispatch("listRetiros", {}).then(function (res) {
+      _this.retiros = res.data.data.retiros;
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  },
+  components: {
+    "menu-item": _helper_menu__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  methods: {
+    deleteRetiros: function deleteRetiros(id) {
+      var _this2 = this;
+
+      var indexOfArrayItem = this.retiros.findIndex(function (i) {
+        return i.id === id;
+      });
+
+      if (window.confirm("Estas seguro de eliminar este retiros?")) {
+        this.$store.dispatch("deleteRetiros", {
+          id: id
+        }).then(function (response) {
+          _this2.retiros.splice(indexOfArrayItem, 1);
+        })["catch"](function (error) {
+          console.log(error);
+        });
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/retiros/registerRetiros.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/component/retiros/registerRetiros.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helper_menu__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/menu */ "./resources/js/views/component/helper/menu.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      cuentas: [],
+      users: [],
+      id_cuenta: null,
+      id_usuario: null,
+      codigo_retiro: null,
+      valor_retiro: null,
+      descripcion: null,
+      error: null
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    this.$store.dispatch("listCuenta", {}).then(function (res) {
+      console.log(res.data.data.cuentas);
+      _this.cuentas = res.data.data.cuentas;
+    })["catch"](function (error) {
+      console.log(error);
+    });
+    this.$store.dispatch("listConsignacionesUser", {}).then(function (res) {
+      console.log(res.data.data.users);
+      _this.users = res.data.data.users;
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  },
+  components: {
+    "menu-item": _helper_menu__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  methods: {
+    onChangeCuenta: function onChangeCuenta(event) {
+      this.id_cuenta = event.target.value;
+    },
+    onChangeUsuario: function onChangeUsuario(event) {
+      this.id_usuario = event.target.value;
+    },
+    register: function register() {
+      this.$store.dispatch("registerRetiros", {
+        codigo_retiro: this.codigo_retiro,
+        valor_retiro: this.valor_retiro,
+        descripcion: this.descripcion,
+        id_usuario: this.id_usuario,
+        id_cuenta: this.id_cuenta
+      }).then(function (response) {
+        console.log(response); //this.$router.push({ name: "retiros" });
+      })["catch"](function (error) {
+        console.log(error.response.data);
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/retiros/updateRetiros.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/component/retiros/updateRetiros.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helper_menu__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/menu */ "./resources/js/views/component/helper/menu.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      cuentas: [],
+      users: [],
+      id_cuenta: null,
+      id_usuario: null,
+      retiro: [],
+      error: null
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    this.$store.dispatch("listCuenta", {}).then(function (res) {
+      console.log(res.data.data.cuentas);
+      _this.cuentas = res.data.data.cuentas;
+    })["catch"](function (error) {
+      console.log(error);
+    });
+    this.$store.dispatch("listConsignacionesUser", {}).then(function (res) {
+      console.log(res.data.data.users);
+      _this.users = res.data.data.users;
+    })["catch"](function (error) {
+      console.log(error);
+    });
+    this.$store.dispatch("listOneRetiros", {
+      id: this.$route.params.id
+    }).then(function (response) {
+      _this.retiro = response.data.data.retiros;
+    })["catch"](function (error) {
+      console.log(error.response.data);
+    });
+  },
+  components: {
+    "menu-item": _helper_menu__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  methods: {
+    onChangeCuenta: function onChangeCuenta(event) {
+      this.id_cuenta = event.target.value;
+    },
+    onChangeUsuario: function onChangeUsuario(event) {
+      this.id_usuario = event.target.value;
+    },
+    register: function register() {
+      if (this.id_cuenta == null) {
+        this.id_cuenta = this.retiro.id_cuenta;
+      }
+
+      if (this.id_usuario == null) {
+        this.id_usuario = this.retiro.id_usuario;
+      }
+
+      this.$store.dispatch("updateRetiros", {
+        id: this.retiro.id,
+        codigo_retiro: this.retiro.codigo_retiro,
+        valor_retiro: this.retiro.valor_retiro,
+        descripcion: this.retiro.descripcion,
+        id_usuario: this.id_usuario,
+        id_cuenta: this.id_cuenta
+      }).then(function (response) {
+        console.log(response); //  this.$router.push({ name: "retiros" });
+      })["catch"](function (error) {
+        console.log(error.response.data);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -20686,6 +21761,13 @@ var render = function() {
                 _c("div", { staticClass: "select" }, [
                   _c(
                     "select",
+                    {
+                      on: {
+                        change: function($event) {
+                          return _vm.onChange($event)
+                        }
+                      }
+                    },
                     [
                       _c("option", [_vm._v("seleccionar tipo de usuario")]),
                       _vm._v(" "),
@@ -21048,6 +22130,13 @@ var render = function() {
                   _c("div", { staticClass: "select" }, [
                     _c(
                       "select",
+                      {
+                        on: {
+                          change: function($event) {
+                            return _vm.onChange($event)
+                          }
+                        }
+                      },
                       [
                         _c("option", [_vm._v("tipo de documento")]),
                         _vm._v(" "),
@@ -21320,7 +22409,14 @@ var render = function() {
                   _c("div", { staticClass: "select" }, [
                     _c(
                       "select",
-                      { domProps: { value: _vm.cliente.id } },
+                      {
+                        domProps: { value: _vm.cliente.tipo_doc },
+                        on: {
+                          change: function($event) {
+                            return _vm.onChange($event)
+                          }
+                        }
+                      },
                       [
                         _c("option", [_vm._v("tipo de documento")]),
                         _vm._v(" "),
@@ -21446,6 +22542,602 @@ var render = function() {
                             return
                           }
                           _vm.$set(_vm.cliente, "email", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "button is-primary",
+                    attrs: { type: "submit" }
+                  },
+                  [_vm._v("Actualizar")]
+                )
+              ]
+            )
+          ])
+        ])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/consignaciones/Consignaciones.vue?vue&type=template&id=4af574a4&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/component/consignaciones/Consignaciones.vue?vue&type=template&id=4af574a4& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("menu-item"),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "table-container" }, [
+          _c(
+            "div",
+            { staticClass: "buttons" },
+            [
+              _c(
+                "router-link",
+                {
+                  staticClass: "button is-success",
+                  attrs: { to: "/consignaciones/register" }
+                },
+                [_vm._v("\r\n      registrar\r\n    ")]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("table", { staticClass: "table" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              [
+                _c("tr"),
+                _vm._l(_vm.consignaciones, function(consignacion) {
+                  return _c("tr", { key: consignacion.id }, [
+                    _c("td", [
+                      _vm._v(_vm._s(consignacion.codigo_consignaciones))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(consignacion.nombre_usuario))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(consignacion.descripcion))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(consignacion.valor_consignacion))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(_vm._s(consignacion.descripcion_consignacion))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "div",
+                        { staticClass: "buttons" },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "button is-primary",
+                              attrs: {
+                                to: {
+                                  name: "updateConsignaciones",
+                                  params: { id: consignacion.id }
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\r\n                          editar\r\n                        "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "button is-danger",
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteConsignaciones(
+                                    consignacion.id
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\r\n                          eliminar\r\n                        "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ])
+                  ])
+                })
+              ],
+              2
+            )
+          ])
+        ])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("codigo")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("usuario")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("cliente")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("valor consignacion")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("descripcione")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("acciones")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/consignaciones/registerConsignaciones.vue?vue&type=template&id=6645e091&":
+/*!*********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/component/consignaciones/registerConsignaciones.vue?vue&type=template&id=6645e091& ***!
+  \*********************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("menu-item"),
+      _vm._v(" "),
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "column is-4 is-offset-4" }, [
+          _c("div", { staticClass: "box" }, [
+            _c("h1", { staticClass: "title" }, [
+              _vm._v("Registrar consignaciones")
+            ]),
+            _vm._v(" "),
+            _vm.error
+              ? _c("div", { staticClass: "notification is-danger" }, [
+                  _c("p", [_vm._v(_vm._s(_vm.error))])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "form",
+              {
+                attrs: { autocomplete: "off", method: "post" },
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.register($event)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "control" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.codigo_consignaciones,
+                          expression: "codigo_consignaciones"
+                        }
+                      ],
+                      staticClass: "input",
+                      attrs: { type: "text", placeholder: "codigo" },
+                      domProps: { value: _vm.codigo_consignaciones },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.codigo_consignaciones = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "select" }, [
+                    _c(
+                      "select",
+                      {
+                        on: {
+                          change: function($event) {
+                            return _vm.onChangeCuenta($event)
+                          }
+                        }
+                      },
+                      [
+                        _c("option", [_vm._v("selecciona un cuenta")]),
+                        _vm._v(" "),
+                        _vm._l(_vm.cuentas, function(doc) {
+                          return _c(
+                            "option",
+                            { key: doc.id, domProps: { value: doc.id } },
+                            [_vm._v(" " + _vm._s(doc.descripcion) + " ")]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "select" }, [
+                    _c(
+                      "select",
+                      {
+                        on: {
+                          change: function($event) {
+                            return _vm.onChangeUsuario($event)
+                          }
+                        }
+                      },
+                      [
+                        _c("option", [_vm._v("selecciona un usuario")]),
+                        _vm._v(" "),
+                        _vm._l(_vm.users, function(user) {
+                          return _c(
+                            "option",
+                            { key: user.id, domProps: { value: user.id } },
+                            [_vm._v(" " + _vm._s(user.nombre_usuario) + " ")]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "control" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.valor_consignacion,
+                          expression: "valor_consignacion"
+                        }
+                      ],
+                      staticClass: "input",
+                      attrs: {
+                        type: "number",
+                        placeholder: "valor consignacion"
+                      },
+                      domProps: { value: _vm.valor_consignacion },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.valor_consignacion = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "control" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.descripcion_consignacion,
+                          expression: "descripcion_consignacion"
+                        }
+                      ],
+                      staticClass: "input",
+                      attrs: { type: "text", placeholder: "descripcion" },
+                      domProps: { value: _vm.descripcion_consignacion },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.descripcion_consignacion = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "button is-primary",
+                    attrs: { type: "submit" }
+                  },
+                  [_vm._v("Registrar")]
+                )
+              ]
+            )
+          ])
+        ])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/consignaciones/updateConsignaciones.vue?vue&type=template&id=c69e2d12&":
+/*!*******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/component/consignaciones/updateConsignaciones.vue?vue&type=template&id=c69e2d12& ***!
+  \*******************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("menu-item"),
+      _vm._v(" "),
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "column is-4 is-offset-4" }, [
+          _c("div", { staticClass: "box" }, [
+            _c("h1", { staticClass: "title" }, [
+              _vm._v("Actualizar consignacion")
+            ]),
+            _vm._v(" "),
+            _vm.error
+              ? _c("div", { staticClass: "notification is-danger" }, [
+                  _c("p", [_vm._v(_vm._s(_vm.error))])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "form",
+              {
+                attrs: { autocomplete: "off", method: "post" },
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.register($event)
+                  }
+                }
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.consignacion.id,
+                      expression: "consignacion.id"
+                    }
+                  ],
+                  staticClass: "input",
+                  attrs: { type: "hidden", placeholder: "nombre" },
+                  domProps: { value: _vm.consignacion.id },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.consignacion, "id", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "control" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.consignacion.codigo_consignaciones,
+                          expression: "consignacion.codigo_consignaciones"
+                        }
+                      ],
+                      staticClass: "input",
+                      attrs: { type: "text", placeholder: "codigo" },
+                      domProps: {
+                        value: _vm.consignacion.codigo_consignaciones
+                      },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.consignacion,
+                            "codigo_consignaciones",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "select" }, [
+                    _c(
+                      "select",
+                      {
+                        domProps: { value: _vm.consignacion.id_cuenta },
+                        on: {
+                          change: function($event) {
+                            return _vm.onChangeCuenta($event)
+                          }
+                        }
+                      },
+                      [
+                        _c("option", [_vm._v("selecciona un cuenta")]),
+                        _vm._v(" "),
+                        _vm._l(_vm.cuentas, function(cuenta) {
+                          return _c(
+                            "option",
+                            { key: cuenta.id, domProps: { value: cuenta.id } },
+                            [_vm._v(" " + _vm._s(cuenta.descripcion) + " ")]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "select" }, [
+                    _c(
+                      "select",
+                      {
+                        domProps: { value: _vm.consignacion.id_usuario },
+                        on: {
+                          change: function($event) {
+                            return _vm.onChangeUsuario($event)
+                          }
+                        }
+                      },
+                      [
+                        _c("option", [_vm._v("selecciona un usuario")]),
+                        _vm._v(" "),
+                        _vm._l(_vm.users, function(user) {
+                          return _c(
+                            "option",
+                            { key: user.id, domProps: { value: user.id } },
+                            [_vm._v(" " + _vm._s(user.nombre_usuario) + " ")]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "control" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.consignacion.valor_consignacion,
+                          expression: "consignacion.valor_consignacion"
+                        }
+                      ],
+                      staticClass: "input",
+                      attrs: {
+                        type: "number",
+                        placeholder: "valor consignacion"
+                      },
+                      domProps: { value: _vm.consignacion.valor_consignacion },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.consignacion,
+                            "valor_consignacion",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "control" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.consignacion.descripcion_consignacion,
+                          expression: "consignacion.descripcion_consignacion"
+                        }
+                      ],
+                      staticClass: "input",
+                      attrs: { type: "text", placeholder: "descripcion" },
+                      domProps: {
+                        value: _vm.consignacion.descripcion_consignacion
+                      },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.consignacion,
+                            "descripcion_consignacion",
+                            $event.target.value
+                          )
                         }
                       }
                     })
@@ -21622,6 +23314,522 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/cuentas/registerCuenta.vue?vue&type=template&id=fde84400&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/component/cuentas/registerCuenta.vue?vue&type=template&id=fde84400& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("menu-item"),
+      _vm._v(" "),
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "column is-4 is-offset-4" }, [
+          _c("div", { staticClass: "box" }, [
+            _c("h1", { staticClass: "title" }, [_vm._v("Registrar cuenta")]),
+            _vm._v(" "),
+            _vm.error
+              ? _c("div", { staticClass: "notification is-danger" }, [
+                  _c("p", [_vm._v(_vm._s(_vm.error))])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "form",
+              {
+                attrs: { autocomplete: "off", method: "post" },
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.register($event)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "control" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.numero_cuenta,
+                          expression: "numero_cuenta"
+                        }
+                      ],
+                      staticClass: "input",
+                      attrs: { type: "text", placeholder: "numero de cuenta" },
+                      domProps: { value: _vm.numero_cuenta },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.numero_cuenta = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "select" }, [
+                    _c(
+                      "select",
+                      {
+                        on: {
+                          change: function($event) {
+                            return _vm.onChange($event)
+                          }
+                        }
+                      },
+                      [
+                        _c("option", [_vm._v("cliente")]),
+                        _vm._v(" "),
+                        _vm._l(_vm.clientes, function(cli) {
+                          return _c(
+                            "option",
+                            { key: cli.id, domProps: { value: cli.id } },
+                            [_vm._v(" " + _vm._s(cli.nombres) + " ")]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "control" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.saldo,
+                          expression: "saldo"
+                        }
+                      ],
+                      staticClass: "input",
+                      attrs: { type: "number", placeholder: "saldo" },
+                      domProps: { value: _vm.saldo },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.saldo = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "field" },
+                  _vm._l(_vm.mainActiva, function(act) {
+                    return _c(
+                      "div",
+                      { key: act.activa, staticClass: "control" },
+                      [
+                        _c("label", { staticClass: "radio" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.mainActiva.activa,
+                                expression: "mainActiva.activa"
+                              }
+                            ],
+                            attrs: {
+                              type: "radio",
+                              name: "answer",
+                              id: act.activa
+                            },
+                            domProps: {
+                              value: act.activa,
+                              checked: _vm._q(_vm.mainActiva.activa, act.activa)
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.check($event)
+                              },
+                              change: function($event) {
+                                return _vm.$set(
+                                  _vm.mainActiva,
+                                  "activa",
+                                  act.activa
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(
+                            "\n                   " +
+                              _vm._s(act.descripcion) +
+                              "\n                "
+                          )
+                        ])
+                      ]
+                    )
+                  }),
+                  0
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "control" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.clave_cuenta,
+                          expression: "clave_cuenta"
+                        }
+                      ],
+                      staticClass: "input",
+                      attrs: { type: "number", placeholder: "clave" },
+                      domProps: { value: _vm.clave_cuenta },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.clave_cuenta = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "control" }, [
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.descripcion,
+                          expression: "descripcion"
+                        }
+                      ],
+                      staticClass: "textarea",
+                      attrs: { placeholder: "Descripcion de la cuenta" },
+                      domProps: { value: _vm.descripcion },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.descripcion = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "button is-primary",
+                    attrs: { type: "submit" }
+                  },
+                  [_vm._v("Registrar")]
+                )
+              ]
+            )
+          ])
+        ])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/cuentas/updateCuenta.vue?vue&type=template&id=76c053e6&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/component/cuentas/updateCuenta.vue?vue&type=template&id=76c053e6& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("menu-item"),
+      _vm._v(" "),
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "column is-4 is-offset-4" }, [
+          _c("div", { staticClass: "box" }, [
+            _c("h1", { staticClass: "title" }, [_vm._v("Actualizar cuenta")]),
+            _vm._v(" "),
+            _vm.error
+              ? _c("div", { staticClass: "notification is-danger" }, [
+                  _c("p", [_vm._v(_vm._s(_vm.error))])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "form",
+              {
+                attrs: { autocomplete: "off", method: "post" },
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.register($event)
+                  }
+                }
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.cuentas.id,
+                      expression: "cuentas.id"
+                    }
+                  ],
+                  staticClass: "input",
+                  attrs: { type: "hidden", placeholder: "nombre" },
+                  domProps: { value: _vm.cuentas.id },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.cuentas, "id", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "control" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.cuentas.numero_cuenta,
+                          expression: "cuentas.numero_cuenta"
+                        }
+                      ],
+                      staticClass: "input",
+                      attrs: { type: "text", placeholder: "numero de cuenta" },
+                      domProps: { value: _vm.cuentas.numero_cuenta },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.cuentas,
+                            "numero_cuenta",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "select" }, [
+                    _c(
+                      "select",
+                      {
+                        domProps: { value: _vm.cuentas.id_cliente },
+                        on: {
+                          change: function($event) {
+                            return _vm.onChange($event)
+                          }
+                        }
+                      },
+                      [
+                        _c("option", [_vm._v("clientes")]),
+                        _vm._v(" "),
+                        _vm._l(_vm.clientes, function(cli) {
+                          return _c(
+                            "option",
+                            { key: cli.id, domProps: { value: cli.id } },
+                            [_vm._v(" " + _vm._s(cli.nombres) + " ")]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "control" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.cuentas.saldo,
+                          expression: "cuentas.saldo"
+                        }
+                      ],
+                      staticClass: "input",
+                      attrs: { type: "number", placeholder: "saldo" },
+                      domProps: { value: _vm.cuentas.saldo },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.cuentas, "saldo", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c(
+                    "div",
+                    { staticClass: "control" },
+                    _vm._l(_vm.mainActiva, function(act) {
+                      return _c(
+                        "label",
+                        { key: act.activa, staticClass: "radio" },
+                        [
+                          _c("input", {
+                            attrs: { type: "radio", id: act.activa },
+                            domProps: {
+                              value: act.activa,
+                              checked: act.activa == _vm.cuentas.activa
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.check($event)
+                              }
+                            }
+                          }),
+                          _vm._v(
+                            "\n                   " +
+                              _vm._s(act.descripcion) +
+                              "\n                "
+                          )
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "control" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.cuentas.clave_cuenta,
+                          expression: "cuentas.clave_cuenta"
+                        }
+                      ],
+                      staticClass: "input",
+                      attrs: { type: "number", placeholder: "clave" },
+                      domProps: { value: _vm.cuentas.clave_cuenta },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.cuentas,
+                            "clave_cuenta",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "control" }, [
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.cuentas.descripcion,
+                          expression: "cuentas.descripcion"
+                        }
+                      ],
+                      staticClass: "textarea",
+                      attrs: { placeholder: "Descripcion de la cuenta" },
+                      domProps: { value: _vm.cuentas.descripcion },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.cuentas,
+                            "descripcion",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "button is-primary",
+                    attrs: { type: "submit" }
+                  },
+                  [_vm._v("Actualizar")]
+                )
+              ]
+            )
+          ])
+        ])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/helper/menu.vue?vue&type=template&id=48d4969f&":
 /*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/component/helper/menu.vue?vue&type=template&id=48d4969f& ***!
@@ -21667,13 +23875,20 @@ var render = function() {
                   [_vm._v("\n        Cuentas\n      ")]
                 ),
                 _vm._v(" "),
-                _c("a", { staticClass: "navbar-item" }, [
-                  _vm._v("\n        consignaciones\n      ")
-                ]),
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "navbar-item",
+                    attrs: { to: "/consignaciones" }
+                  },
+                  [_vm._v("\n        consignaciones\n      ")]
+                ),
                 _vm._v(" "),
-                _c("a", { staticClass: "navbar-item" }, [
-                  _vm._v("\n        retiros\n      ")
-                ])
+                _c(
+                  "router-link",
+                  { staticClass: "navbar-item", attrs: { to: "/retiros" } },
+                  [_vm._v("\n        Retiros\n      ")]
+                )
               ],
               1
             ),
@@ -21731,6 +23946,582 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/retiros/Retiros.vue?vue&type=template&id=9e818ba8&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/component/retiros/Retiros.vue?vue&type=template&id=9e818ba8& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("menu-item"),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "table-container" }, [
+          _c(
+            "div",
+            { staticClass: "buttons" },
+            [
+              _c(
+                "router-link",
+                {
+                  staticClass: "button is-success",
+                  attrs: { to: "/retiros/register" }
+                },
+                [_vm._v("\r\n      registrar\r\n    ")]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("table", { staticClass: "table" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              [
+                _c("tr"),
+                _vm._l(_vm.retiros, function(retiro) {
+                  return _c("tr", { key: retiro.id }, [
+                    _c("td", [_vm._v(_vm._s(retiro.codigo_retiro))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(retiro.nombre_usuario))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(retiro.descripcion_cuenta))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(retiro.valor_retiro))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(retiro.descripcion))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "div",
+                        { staticClass: "buttons" },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "button is-primary",
+                              attrs: {
+                                to: {
+                                  name: "updateRetiros",
+                                  params: { id: retiro.id }
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\r\n                          editar\r\n                        "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "button is-danger",
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteRetiros(retiro.id)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\r\n                          eliminar\r\n                        "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ])
+                  ])
+                })
+              ],
+              2
+            )
+          ])
+        ])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("codigo")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("usuario")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("cliente")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("valor retiro")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("descripcione")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("acciones")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/retiros/registerRetiros.vue?vue&type=template&id=478371a9&":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/component/retiros/registerRetiros.vue?vue&type=template&id=478371a9& ***!
+  \*******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("menu-item"),
+      _vm._v(" "),
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "column is-4 is-offset-4" }, [
+          _c("div", { staticClass: "box" }, [
+            _c("h1", { staticClass: "title" }, [_vm._v("Registrar retiros")]),
+            _vm._v(" "),
+            _vm.error
+              ? _c("div", { staticClass: "notification is-danger" }, [
+                  _c("p", [_vm._v(_vm._s(_vm.error))])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "form",
+              {
+                attrs: { autocomplete: "off", method: "post" },
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.register($event)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "control" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.codigo_retiro,
+                          expression: "codigo_retiro"
+                        }
+                      ],
+                      staticClass: "input",
+                      attrs: { type: "text", placeholder: "codigo" },
+                      domProps: { value: _vm.codigo_retiro },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.codigo_retiro = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "select" }, [
+                    _c(
+                      "select",
+                      {
+                        on: {
+                          change: function($event) {
+                            return _vm.onChangeCuenta($event)
+                          }
+                        }
+                      },
+                      [
+                        _c("option", [_vm._v("selecciona un cuenta")]),
+                        _vm._v(" "),
+                        _vm._l(_vm.cuentas, function(doc) {
+                          return _c(
+                            "option",
+                            { key: doc.id, domProps: { value: doc.id } },
+                            [_vm._v(" " + _vm._s(doc.descripcion) + " ")]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "select" }, [
+                    _c(
+                      "select",
+                      {
+                        on: {
+                          change: function($event) {
+                            return _vm.onChangeUsuario($event)
+                          }
+                        }
+                      },
+                      [
+                        _c("option", [_vm._v("selecciona un usuario")]),
+                        _vm._v(" "),
+                        _vm._l(_vm.users, function(user) {
+                          return _c(
+                            "option",
+                            { key: user.id, domProps: { value: user.id } },
+                            [_vm._v(" " + _vm._s(user.nombre_usuario) + " ")]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "control" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.valor_retiro,
+                          expression: "valor_retiro"
+                        }
+                      ],
+                      staticClass: "input",
+                      attrs: { type: "number", placeholder: "valor retiro" },
+                      domProps: { value: _vm.valor_retiro },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.valor_retiro = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "control" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.descripcion,
+                          expression: "descripcion"
+                        }
+                      ],
+                      staticClass: "input",
+                      attrs: { type: "text", placeholder: "descripcion" },
+                      domProps: { value: _vm.descripcion },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.descripcion = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "button is-primary",
+                    attrs: { type: "submit" }
+                  },
+                  [_vm._v("Registrar")]
+                )
+              ]
+            )
+          ])
+        ])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/retiros/updateRetiros.vue?vue&type=template&id=7927ed43&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/component/retiros/updateRetiros.vue?vue&type=template&id=7927ed43& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("menu-item"),
+      _vm._v(" "),
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "column is-4 is-offset-4" }, [
+          _c("div", { staticClass: "box" }, [
+            _c("h1", { staticClass: "title" }, [_vm._v("Actualizar retiro")]),
+            _vm._v(" "),
+            _vm.error
+              ? _c("div", { staticClass: "notification is-danger" }, [
+                  _c("p", [_vm._v(_vm._s(_vm.error))])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "form",
+              {
+                attrs: { autocomplete: "off", method: "post" },
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.register($event)
+                  }
+                }
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.retiro.id,
+                      expression: "retiro.id"
+                    }
+                  ],
+                  staticClass: "input",
+                  attrs: { type: "hidden", placeholder: "nombre" },
+                  domProps: { value: _vm.retiro.id },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.retiro, "id", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "control" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.retiro.codigo_retiro,
+                          expression: "retiro.codigo_retiro"
+                        }
+                      ],
+                      staticClass: "input",
+                      attrs: { type: "text", placeholder: "codigo" },
+                      domProps: { value: _vm.retiro.codigo_retiro },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.retiro,
+                            "codigo_retiro",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "select" }, [
+                    _c(
+                      "select",
+                      {
+                        domProps: { value: _vm.retiro.id_cuenta },
+                        on: {
+                          change: function($event) {
+                            return _vm.onChangeCuenta($event)
+                          }
+                        }
+                      },
+                      [
+                        _c("option", [_vm._v("selecciona un cuenta")]),
+                        _vm._v(" "),
+                        _vm._l(_vm.cuentas, function(cuenta) {
+                          return _c(
+                            "option",
+                            { key: cuenta.id, domProps: { value: cuenta.id } },
+                            [_vm._v(" " + _vm._s(cuenta.descripcion) + " ")]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "select" }, [
+                    _c(
+                      "select",
+                      {
+                        domProps: { value: _vm.retiro.id_usuario },
+                        on: {
+                          change: function($event) {
+                            return _vm.onChangeUsuario($event)
+                          }
+                        }
+                      },
+                      [
+                        _c("option", [_vm._v("selecciona un usuario")]),
+                        _vm._v(" "),
+                        _vm._l(_vm.users, function(user) {
+                          return _c(
+                            "option",
+                            { key: user.id, domProps: { value: user.id } },
+                            [_vm._v(" " + _vm._s(user.nombre_usuario) + " ")]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "control" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.retiro.valor_retiro,
+                          expression: "retiro.valor_retiro"
+                        }
+                      ],
+                      staticClass: "input",
+                      attrs: { type: "number", placeholder: "valor retiro" },
+                      domProps: { value: _vm.retiro.valor_retiro },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.retiro,
+                            "valor_retiro",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("div", { staticClass: "control" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.retiro.descripcion,
+                          expression: "retiro.descripcion"
+                        }
+                      ],
+                      staticClass: "input",
+                      attrs: { type: "text", placeholder: "descripcion" },
+                      domProps: { value: _vm.retiro.descripcion },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.retiro,
+                            "descripcion",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "button is-primary",
+                    attrs: { type: "submit" }
+                  },
+                  [_vm._v("Actualizar")]
+                )
+              ]
+            )
+          ])
+        ])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -38343,9 +41134,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_component_clientes_updatecliente__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./views/component/clientes/updatecliente */ "./resources/js/views/component/clientes/updatecliente.vue");
 /* harmony import */ var _views_component_auth_Register__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./views/component/auth/Register */ "./resources/js/views/component/auth/Register.vue");
 /* harmony import */ var _views_component_cuentas_Cuentas__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./views/component/cuentas/Cuentas */ "./resources/js/views/component/cuentas/Cuentas.vue");
+/* harmony import */ var _views_component_cuentas_registerCuenta__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./views/component/cuentas/registerCuenta */ "./resources/js/views/component/cuentas/registerCuenta.vue");
+/* harmony import */ var _views_component_cuentas_updateCuenta__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./views/component/cuentas/updateCuenta */ "./resources/js/views/component/cuentas/updateCuenta.vue");
+/* harmony import */ var _views_component_consignaciones_Consignaciones__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./views/component/consignaciones/Consignaciones */ "./resources/js/views/component/consignaciones/Consignaciones.vue");
+/* harmony import */ var _views_component_consignaciones_registerConsignaciones__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./views/component/consignaciones/registerConsignaciones */ "./resources/js/views/component/consignaciones/registerConsignaciones.vue");
+/* harmony import */ var _views_component_consignaciones_updateConsignaciones__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./views/component/consignaciones/updateConsignaciones */ "./resources/js/views/component/consignaciones/updateConsignaciones.vue");
+/* harmony import */ var _views_component_retiros_Retiros__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./views/component/retiros/Retiros */ "./resources/js/views/component/retiros/Retiros.vue");
+/* harmony import */ var _views_component_retiros_registerRetiros__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./views/component/retiros/registerRetiros */ "./resources/js/views/component/retiros/registerRetiros.vue");
+/* harmony import */ var _views_component_retiros_updateRetiros__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./views/component/retiros/updateRetiros */ "./resources/js/views/component/retiros/updateRetiros.vue");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]); // Pages
+
+
+
+
+
+
+
+
 
 
 
@@ -38411,6 +41218,64 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/cuentas',
     name: 'cuentas',
     component: _views_component_cuentas_Cuentas__WEBPACK_IMPORTED_MODULE_9__["default"],
+    meta: {
+      requiresAuth: true
+    }
+  }, {
+    path: '/cuenta/register',
+    name: 'registerCuenta',
+    component: _views_component_cuentas_registerCuenta__WEBPACK_IMPORTED_MODULE_10__["default"],
+    meta: {
+      requiresAuth: true
+    }
+  }, {
+    path: '/cuenta/editar/:id',
+    name: 'updateCuenta',
+    component: _views_component_cuentas_updateCuenta__WEBPACK_IMPORTED_MODULE_11__["default"],
+    meta: {
+      requiresAuth: true
+    }
+  }, //consignaciones
+  {
+    path: '/consignaciones',
+    name: 'consignaciones',
+    component: _views_component_consignaciones_Consignaciones__WEBPACK_IMPORTED_MODULE_12__["default"],
+    meta: {
+      requiresAuth: true
+    }
+  }, {
+    path: '/consignaciones/register',
+    name: 'registerConsignaciones',
+    component: _views_component_consignaciones_registerConsignaciones__WEBPACK_IMPORTED_MODULE_13__["default"],
+    meta: {
+      requiresAuth: true
+    }
+  }, {
+    path: '/consignaciones/editar/:id',
+    name: 'updateConsignaciones',
+    component: _views_component_consignaciones_updateConsignaciones__WEBPACK_IMPORTED_MODULE_14__["default"],
+    meta: {
+      requiresAuth: true
+    }
+  }, //retiros
+  {
+    path: '/retiros',
+    name: 'retiros',
+    component: _views_component_retiros_Retiros__WEBPACK_IMPORTED_MODULE_15__["default"],
+    meta: {
+      requiresAuth: true
+    }
+  }, {
+    path: '/retiros/register',
+    name: 'registerRetiros',
+    component: _views_component_retiros_registerRetiros__WEBPACK_IMPORTED_MODULE_16__["default"],
+    meta: {
+      requiresAuth: true
+    }
+  }, {
+    path: '/retiros/editar/:id',
+    name: 'updateRetiros',
+    component: _views_component_retiros_updateRetiros__WEBPACK_IMPORTED_MODULE_17__["default"],
     meta: {
       requiresAuth: true
     }
@@ -38972,6 +41837,213 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/views/component/consignaciones/Consignaciones.vue":
+/*!************************************************************************!*\
+  !*** ./resources/js/views/component/consignaciones/Consignaciones.vue ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Consignaciones_vue_vue_type_template_id_4af574a4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Consignaciones.vue?vue&type=template&id=4af574a4& */ "./resources/js/views/component/consignaciones/Consignaciones.vue?vue&type=template&id=4af574a4&");
+/* harmony import */ var _Consignaciones_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Consignaciones.vue?vue&type=script&lang=js& */ "./resources/js/views/component/consignaciones/Consignaciones.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Consignaciones_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Consignaciones_vue_vue_type_template_id_4af574a4___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Consignaciones_vue_vue_type_template_id_4af574a4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/component/consignaciones/Consignaciones.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/component/consignaciones/Consignaciones.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/views/component/consignaciones/Consignaciones.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Consignaciones_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Consignaciones.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/consignaciones/Consignaciones.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Consignaciones_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/component/consignaciones/Consignaciones.vue?vue&type=template&id=4af574a4&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/views/component/consignaciones/Consignaciones.vue?vue&type=template&id=4af574a4& ***!
+  \*******************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Consignaciones_vue_vue_type_template_id_4af574a4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Consignaciones.vue?vue&type=template&id=4af574a4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/consignaciones/Consignaciones.vue?vue&type=template&id=4af574a4&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Consignaciones_vue_vue_type_template_id_4af574a4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Consignaciones_vue_vue_type_template_id_4af574a4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/component/consignaciones/registerConsignaciones.vue":
+/*!********************************************************************************!*\
+  !*** ./resources/js/views/component/consignaciones/registerConsignaciones.vue ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _registerConsignaciones_vue_vue_type_template_id_6645e091___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./registerConsignaciones.vue?vue&type=template&id=6645e091& */ "./resources/js/views/component/consignaciones/registerConsignaciones.vue?vue&type=template&id=6645e091&");
+/* harmony import */ var _registerConsignaciones_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./registerConsignaciones.vue?vue&type=script&lang=js& */ "./resources/js/views/component/consignaciones/registerConsignaciones.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _registerConsignaciones_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _registerConsignaciones_vue_vue_type_template_id_6645e091___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _registerConsignaciones_vue_vue_type_template_id_6645e091___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/component/consignaciones/registerConsignaciones.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/component/consignaciones/registerConsignaciones.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/views/component/consignaciones/registerConsignaciones.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_registerConsignaciones_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./registerConsignaciones.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/consignaciones/registerConsignaciones.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_registerConsignaciones_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/component/consignaciones/registerConsignaciones.vue?vue&type=template&id=6645e091&":
+/*!***************************************************************************************************************!*\
+  !*** ./resources/js/views/component/consignaciones/registerConsignaciones.vue?vue&type=template&id=6645e091& ***!
+  \***************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_registerConsignaciones_vue_vue_type_template_id_6645e091___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./registerConsignaciones.vue?vue&type=template&id=6645e091& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/consignaciones/registerConsignaciones.vue?vue&type=template&id=6645e091&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_registerConsignaciones_vue_vue_type_template_id_6645e091___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_registerConsignaciones_vue_vue_type_template_id_6645e091___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/component/consignaciones/updateConsignaciones.vue":
+/*!******************************************************************************!*\
+  !*** ./resources/js/views/component/consignaciones/updateConsignaciones.vue ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _updateConsignaciones_vue_vue_type_template_id_c69e2d12___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./updateConsignaciones.vue?vue&type=template&id=c69e2d12& */ "./resources/js/views/component/consignaciones/updateConsignaciones.vue?vue&type=template&id=c69e2d12&");
+/* harmony import */ var _updateConsignaciones_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./updateConsignaciones.vue?vue&type=script&lang=js& */ "./resources/js/views/component/consignaciones/updateConsignaciones.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _updateConsignaciones_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _updateConsignaciones_vue_vue_type_template_id_c69e2d12___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _updateConsignaciones_vue_vue_type_template_id_c69e2d12___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/component/consignaciones/updateConsignaciones.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/component/consignaciones/updateConsignaciones.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/views/component/consignaciones/updateConsignaciones.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_updateConsignaciones_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./updateConsignaciones.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/consignaciones/updateConsignaciones.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_updateConsignaciones_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/component/consignaciones/updateConsignaciones.vue?vue&type=template&id=c69e2d12&":
+/*!*************************************************************************************************************!*\
+  !*** ./resources/js/views/component/consignaciones/updateConsignaciones.vue?vue&type=template&id=c69e2d12& ***!
+  \*************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_updateConsignaciones_vue_vue_type_template_id_c69e2d12___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./updateConsignaciones.vue?vue&type=template&id=c69e2d12& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/consignaciones/updateConsignaciones.vue?vue&type=template&id=c69e2d12&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_updateConsignaciones_vue_vue_type_template_id_c69e2d12___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_updateConsignaciones_vue_vue_type_template_id_c69e2d12___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/views/component/cuentas/Cuentas.vue":
 /*!**********************************************************!*\
   !*** ./resources/js/views/component/cuentas/Cuentas.vue ***!
@@ -39041,6 +42113,144 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/views/component/cuentas/registerCuenta.vue":
+/*!*****************************************************************!*\
+  !*** ./resources/js/views/component/cuentas/registerCuenta.vue ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _registerCuenta_vue_vue_type_template_id_fde84400___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./registerCuenta.vue?vue&type=template&id=fde84400& */ "./resources/js/views/component/cuentas/registerCuenta.vue?vue&type=template&id=fde84400&");
+/* harmony import */ var _registerCuenta_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./registerCuenta.vue?vue&type=script&lang=js& */ "./resources/js/views/component/cuentas/registerCuenta.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _registerCuenta_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _registerCuenta_vue_vue_type_template_id_fde84400___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _registerCuenta_vue_vue_type_template_id_fde84400___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/component/cuentas/registerCuenta.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/component/cuentas/registerCuenta.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/views/component/cuentas/registerCuenta.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_registerCuenta_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./registerCuenta.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/cuentas/registerCuenta.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_registerCuenta_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/component/cuentas/registerCuenta.vue?vue&type=template&id=fde84400&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/views/component/cuentas/registerCuenta.vue?vue&type=template&id=fde84400& ***!
+  \************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_registerCuenta_vue_vue_type_template_id_fde84400___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./registerCuenta.vue?vue&type=template&id=fde84400& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/cuentas/registerCuenta.vue?vue&type=template&id=fde84400&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_registerCuenta_vue_vue_type_template_id_fde84400___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_registerCuenta_vue_vue_type_template_id_fde84400___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/component/cuentas/updateCuenta.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/views/component/cuentas/updateCuenta.vue ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _updateCuenta_vue_vue_type_template_id_76c053e6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./updateCuenta.vue?vue&type=template&id=76c053e6& */ "./resources/js/views/component/cuentas/updateCuenta.vue?vue&type=template&id=76c053e6&");
+/* harmony import */ var _updateCuenta_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./updateCuenta.vue?vue&type=script&lang=js& */ "./resources/js/views/component/cuentas/updateCuenta.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _updateCuenta_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _updateCuenta_vue_vue_type_template_id_76c053e6___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _updateCuenta_vue_vue_type_template_id_76c053e6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/component/cuentas/updateCuenta.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/component/cuentas/updateCuenta.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/views/component/cuentas/updateCuenta.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_updateCuenta_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./updateCuenta.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/cuentas/updateCuenta.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_updateCuenta_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/component/cuentas/updateCuenta.vue?vue&type=template&id=76c053e6&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/views/component/cuentas/updateCuenta.vue?vue&type=template&id=76c053e6& ***!
+  \**********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_updateCuenta_vue_vue_type_template_id_76c053e6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./updateCuenta.vue?vue&type=template&id=76c053e6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/cuentas/updateCuenta.vue?vue&type=template&id=76c053e6&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_updateCuenta_vue_vue_type_template_id_76c053e6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_updateCuenta_vue_vue_type_template_id_76c053e6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/views/component/helper/menu.vue":
 /*!******************************************************!*\
   !*** ./resources/js/views/component/helper/menu.vue ***!
@@ -39105,6 +42315,213 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_menu_vue_vue_type_template_id_48d4969f___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_menu_vue_vue_type_template_id_48d4969f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/component/retiros/Retiros.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/views/component/retiros/Retiros.vue ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Retiros_vue_vue_type_template_id_9e818ba8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Retiros.vue?vue&type=template&id=9e818ba8& */ "./resources/js/views/component/retiros/Retiros.vue?vue&type=template&id=9e818ba8&");
+/* harmony import */ var _Retiros_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Retiros.vue?vue&type=script&lang=js& */ "./resources/js/views/component/retiros/Retiros.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Retiros_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Retiros_vue_vue_type_template_id_9e818ba8___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Retiros_vue_vue_type_template_id_9e818ba8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/component/retiros/Retiros.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/component/retiros/Retiros.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/views/component/retiros/Retiros.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Retiros_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Retiros.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/retiros/Retiros.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Retiros_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/component/retiros/Retiros.vue?vue&type=template&id=9e818ba8&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/views/component/retiros/Retiros.vue?vue&type=template&id=9e818ba8& ***!
+  \*****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Retiros_vue_vue_type_template_id_9e818ba8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Retiros.vue?vue&type=template&id=9e818ba8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/retiros/Retiros.vue?vue&type=template&id=9e818ba8&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Retiros_vue_vue_type_template_id_9e818ba8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Retiros_vue_vue_type_template_id_9e818ba8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/component/retiros/registerRetiros.vue":
+/*!******************************************************************!*\
+  !*** ./resources/js/views/component/retiros/registerRetiros.vue ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _registerRetiros_vue_vue_type_template_id_478371a9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./registerRetiros.vue?vue&type=template&id=478371a9& */ "./resources/js/views/component/retiros/registerRetiros.vue?vue&type=template&id=478371a9&");
+/* harmony import */ var _registerRetiros_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./registerRetiros.vue?vue&type=script&lang=js& */ "./resources/js/views/component/retiros/registerRetiros.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _registerRetiros_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _registerRetiros_vue_vue_type_template_id_478371a9___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _registerRetiros_vue_vue_type_template_id_478371a9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/component/retiros/registerRetiros.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/component/retiros/registerRetiros.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/views/component/retiros/registerRetiros.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_registerRetiros_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./registerRetiros.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/retiros/registerRetiros.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_registerRetiros_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/component/retiros/registerRetiros.vue?vue&type=template&id=478371a9&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/views/component/retiros/registerRetiros.vue?vue&type=template&id=478371a9& ***!
+  \*************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_registerRetiros_vue_vue_type_template_id_478371a9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./registerRetiros.vue?vue&type=template&id=478371a9& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/retiros/registerRetiros.vue?vue&type=template&id=478371a9&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_registerRetiros_vue_vue_type_template_id_478371a9___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_registerRetiros_vue_vue_type_template_id_478371a9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/component/retiros/updateRetiros.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/views/component/retiros/updateRetiros.vue ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _updateRetiros_vue_vue_type_template_id_7927ed43___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./updateRetiros.vue?vue&type=template&id=7927ed43& */ "./resources/js/views/component/retiros/updateRetiros.vue?vue&type=template&id=7927ed43&");
+/* harmony import */ var _updateRetiros_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./updateRetiros.vue?vue&type=script&lang=js& */ "./resources/js/views/component/retiros/updateRetiros.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _updateRetiros_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _updateRetiros_vue_vue_type_template_id_7927ed43___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _updateRetiros_vue_vue_type_template_id_7927ed43___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/component/retiros/updateRetiros.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/component/retiros/updateRetiros.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/views/component/retiros/updateRetiros.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_updateRetiros_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./updateRetiros.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/retiros/updateRetiros.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_updateRetiros_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/component/retiros/updateRetiros.vue?vue&type=template&id=7927ed43&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/views/component/retiros/updateRetiros.vue?vue&type=template&id=7927ed43& ***!
+  \***********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_updateRetiros_vue_vue_type_template_id_7927ed43___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./updateRetiros.vue?vue&type=template&id=7927ed43& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/component/retiros/updateRetiros.vue?vue&type=template&id=7927ed43&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_updateRetiros_vue_vue_type_template_id_7927ed43___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_updateRetiros_vue_vue_type_template_id_7927ed43___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -39341,9 +42758,9 @@ var state = {
 };
 var mutations = {};
 var actions = {
-  listCuenta: function listCuenta() {
+  listConsignaciones: function listConsignaciones() {
     return new Promise(function (resolve, reject) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/cuenta', {}).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/consignaciones', {}).then(function (response) {
         // console.log(response.data.data.tipo_usuario)  
         resolve(response);
       })["catch"](function (error) {
@@ -39352,9 +42769,9 @@ var actions = {
       });
     });
   },
-  listOne: function listOne(context, data) {
+  listConsignacionesUser: function listConsignacionesUser() {
     return new Promise(function (resolve, reject) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/cuenta/' + data.id, {}).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/consignaciones/user', {}).then(function (response) {
         // console.log(response.data.data.tipo_usuario)  
         resolve(response);
       })["catch"](function (error) {
@@ -39363,16 +42780,25 @@ var actions = {
       });
     });
   },
-  registerCuenta: function registerCuenta(context, data) {
+  listOneConsignaciones: function listOneConsignaciones(context, data) {
     return new Promise(function (resolve, reject) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/cuenta', {
-        nombres: data.nombre,
-        apellidos: data.apellido,
-        numero_cedula: data.numero_cedula,
-        direccion: data.direccion,
-        telefono: data.telefono,
-        email: data.email,
-        tipo_doc: Number(data.tipo_doc)
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/consignaciones/' + data.id, {}).then(function (response) {
+        // console.log(response.data.data.tipo_usuario)  
+        resolve(response);
+      })["catch"](function (error) {
+        console.log(error);
+        reject(error);
+      });
+    });
+  },
+  registerConsignaciones: function registerConsignaciones(context, data) {
+    return new Promise(function (resolve, reject) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/consignaciones', {
+        codigo_consignaciones: data.codigo_consignaciones,
+        valor_consignacion: data.valor_consignacion,
+        descripcion_consignacion: data.descripcion_consignacion,
+        id_usuario: Number(data.id_usuario),
+        id_cuenta: Number(data.id_cuenta)
       }).then(function (response) {
         resolve(response);
       })["catch"](function (error) {
@@ -39381,17 +42807,15 @@ var actions = {
       });
     });
   },
-  updateCuenta: function updateCuenta(context, data) {
+  updateConsignaciones: function updateConsignaciones(context, data) {
     return new Promise(function (resolve, reject) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/cuenta', {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/consignaciones', {
         id: data.id,
-        nombres: data.nombre,
-        apellidos: data.apellido,
-        numero_cedula: data.numero_cedula,
-        direccion: data.direccion,
-        telefono: data.telefono,
-        email: data.email,
-        tipo_doc: Number(data.tipo_doc)
+        codigo_consignaciones: data.codigo_consignaciones,
+        valor_consignacion: data.valor_consignacion,
+        descripcion_consignacion: data.descripcion_consignacion,
+        id_usuario: Number(data.id_usuario),
+        id_cuenta: Number(data.id_cuenta)
       }).then(function (response) {
         resolve(response);
       })["catch"](function (error) {
@@ -39400,9 +42824,9 @@ var actions = {
       });
     });
   },
-  deleteCuenta: function deleteCuenta(context, data) {
+  deleteConsignaciones: function deleteConsignaciones(context, data) {
     return new Promise(function (resolve, reject) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/api/cuenta/' + data.id, {}).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/api/consignaciones/' + data.id, {}).then(function (response) {
         // console.log(response.data.data.tipo_usuario)  
         resolve(response);
       })["catch"](function (error) {
@@ -39446,7 +42870,7 @@ var actions = {
       });
     });
   },
-  listOne: function listOne(context, data) {
+  listOneCuenta: function listOneCuenta(context, data) {
     return new Promise(function (resolve, reject) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/cuenta/' + data.id, {}).then(function (response) {
         // console.log(response.data.data.tipo_usuario)  
@@ -39460,13 +42884,12 @@ var actions = {
   registerCuenta: function registerCuenta(context, data) {
     return new Promise(function (resolve, reject) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/cuenta', {
-        nombres: data.nombre,
-        apellidos: data.apellido,
-        numero_cedula: data.numero_cedula,
-        direccion: data.direccion,
-        telefono: data.telefono,
-        email: data.email,
-        tipo_doc: Number(data.tipo_doc)
+        numero_cuenta: data.numero_cuenta,
+        id_cliente: data.id_cliente,
+        saldo: data.saldo,
+        activa: data.activa,
+        clave_cuenta: data.clave_cuenta,
+        descripcion: data.descripcion
       }).then(function (response) {
         resolve(response);
       })["catch"](function (error) {
@@ -39475,17 +42898,16 @@ var actions = {
       });
     });
   },
-  updateCuenta: function updateCuenta(context, data) {
+  updateCuentas: function updateCuentas(context, data) {
     return new Promise(function (resolve, reject) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/cuenta', {
         id: data.id,
-        nombres: data.nombre,
-        apellidos: data.apellido,
-        numero_cedula: data.numero_cedula,
-        direccion: data.direccion,
-        telefono: data.telefono,
-        email: data.email,
-        tipo_doc: Number(data.tipo_doc)
+        numero_cuenta: data.numero_cuenta,
+        id_cliente: Number(data.id_cliente),
+        saldo: data.saldo,
+        activa: data.activa,
+        clave_cuenta: data.clave_cuenta,
+        descripcion: data.descripcion
       }).then(function (response) {
         resolve(response);
       })["catch"](function (error) {
@@ -39531,9 +42953,9 @@ var state = {
 };
 var mutations = {};
 var actions = {
-  listCuenta: function listCuenta() {
+  listRetiros: function listRetiros() {
     return new Promise(function (resolve, reject) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/cuenta', {}).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/retiros', {}).then(function (response) {
         // console.log(response.data.data.tipo_usuario)  
         resolve(response);
       })["catch"](function (error) {
@@ -39542,9 +42964,9 @@ var actions = {
       });
     });
   },
-  listOne: function listOne(context, data) {
+  listretiRosUser: function listretiRosUser() {
     return new Promise(function (resolve, reject) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/cuenta/' + data.id, {}).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/retiros/user', {}).then(function (response) {
         // console.log(response.data.data.tipo_usuario)  
         resolve(response);
       })["catch"](function (error) {
@@ -39553,16 +42975,25 @@ var actions = {
       });
     });
   },
-  registerCuenta: function registerCuenta(context, data) {
+  listOneRetiros: function listOneRetiros(context, data) {
     return new Promise(function (resolve, reject) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/cuenta', {
-        nombres: data.nombre,
-        apellidos: data.apellido,
-        numero_cedula: data.numero_cedula,
-        direccion: data.direccion,
-        telefono: data.telefono,
-        email: data.email,
-        tipo_doc: Number(data.tipo_doc)
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/retiros/' + data.id, {}).then(function (response) {
+        // console.log(response.data.data.tipo_usuario)  
+        resolve(response);
+      })["catch"](function (error) {
+        console.log(error);
+        reject(error);
+      });
+    });
+  },
+  registerRetiros: function registerRetiros(context, data) {
+    return new Promise(function (resolve, reject) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/retiros', {
+        codigo_retiro: data.codigo_retiro,
+        valor_retiro: data.valor_retiro,
+        descripcion: data.descripcion,
+        id_usuario: Number(data.id_usuario),
+        id_cuenta: Number(data.id_cuenta)
       }).then(function (response) {
         resolve(response);
       })["catch"](function (error) {
@@ -39571,17 +43002,15 @@ var actions = {
       });
     });
   },
-  updateCuenta: function updateCuenta(context, data) {
+  updateRetiros: function updateRetiros(context, data) {
     return new Promise(function (resolve, reject) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/cuenta', {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/retiros', {
         id: data.id,
-        nombres: data.nombre,
-        apellidos: data.apellido,
-        numero_cedula: data.numero_cedula,
-        direccion: data.direccion,
-        telefono: data.telefono,
-        email: data.email,
-        tipo_doc: Number(data.tipo_doc)
+        codigo_retiro: data.codigo_retiro,
+        valor_retiro: data.valor_retiro,
+        descripcion: data.descripcion,
+        id_usuario: Number(data.id_usuario),
+        id_cuenta: Number(data.id_cuenta)
       }).then(function (response) {
         resolve(response);
       })["catch"](function (error) {
@@ -39590,9 +43019,9 @@ var actions = {
       });
     });
   },
-  deleteCuenta: function deleteCuenta(context, data) {
+  deleteRetiros: function deleteRetiros(context, data) {
     return new Promise(function (resolve, reject) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/api/cuenta/' + data.id, {}).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/api/retiros/' + data.id, {}).then(function (response) {
         // console.log(response.data.data.tipo_usuario)  
         resolve(response);
       })["catch"](function (error) {

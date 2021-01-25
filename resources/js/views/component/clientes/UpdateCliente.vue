@@ -29,7 +29,7 @@
             <div class="field">
              
                 <div class="select">
-                  <select :value="cliente.id">                  
+                  <select @change="onChange($event)"  :value="cliente.tipo_doc">                  
                     <option>tipo de documento</option>
                     <option v-for="doc in type_doc" v-bind:key="doc.id" v-bind:value="doc.id"> {{ doc.nombre_doc }} </option>
                   </select>
@@ -75,6 +75,7 @@ export default {
   data() {
     return {
       type_doc:[],
+      doc_id: null,
       cliente: [],
       error: null
     };
@@ -107,9 +108,13 @@ export default {
        "menu-item": menu_iems_pages
   },
   methods: {
-
+    onChange(event) {
+       this.doc_id = event.target.value;
+    },
     register() {
-       
+     if (this.doc_id == null) {
+        this.doc_id = this.cliente.tipo_doc
+      }
       this.$store
         .dispatch("updateCliente", {
           id: this.cliente.id,
@@ -119,7 +124,7 @@ export default {
           direccion: this.cliente.direccion,
           telefono: this.cliente.telefono,
           email: this.cliente.email,
-          tipo_doc: this.type_doc[0]['id']
+          tipo_doc: this.doc_id
         })
         .then(response => {
           this.$router.push({ name: "dashboard" });

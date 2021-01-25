@@ -11,6 +11,14 @@ import registercliente from './views/component/clientes/registercliente'
 import updatecliente from './views/component/clientes/updatecliente'
 import Register from './views/component/auth/Register';
 import Cuentas from "./views/component/cuentas/Cuentas";
+import registerCuenta from "./views/component/cuentas/registerCuenta";
+import updateCuenta from "./views/component/cuentas/updateCuenta";
+import Consignaciones from "./views/component/consignaciones/Consignaciones";
+import registerConsignaciones from "./views/component/consignaciones/registerConsignaciones";
+import updateConsignaciones from "./views/component/consignaciones/updateConsignaciones";
+import Retiros from "./views/component/retiros/Retiros";
+import registerRetiros from "./views/component/retiros/registerRetiros";
+import updateRetiros from "./views/component/retiros/updateRetiros";
 
 // Routes
 const router = new VueRouter({
@@ -85,6 +93,83 @@ const router = new VueRouter({
             path: '/cuentas',
             name: 'cuentas',
             component: Cuentas,
+            meta: {
+                requiresAuth: true,
+            }
+        },
+
+        {
+            path: '/cuenta/register',
+            name: 'registerCuenta',
+            component: registerCuenta,
+            meta: {
+                requiresAuth: true,
+            }
+        },
+
+        {
+            path: '/cuenta/editar/:id',
+            name: 'updateCuenta',
+            component: updateCuenta,
+            meta: {
+                requiresAuth: true,
+            }
+        },
+
+        //consignaciones
+
+        {
+            path: '/consignaciones',
+            name: 'consignaciones',
+            component: Consignaciones,
+            meta: {
+                requiresAuth: true,
+            }
+        },
+
+        {
+            path: '/consignaciones/register',
+            name: 'registerConsignaciones',
+            component: registerConsignaciones,
+            meta: {
+                requiresAuth: true,
+            }
+        },
+
+        {
+            path: '/consignaciones/editar/:id',
+            name: 'updateConsignaciones',
+            component: updateConsignaciones,
+            meta: {
+                requiresAuth: true,
+            }
+        },
+
+
+        //retiros
+
+        {
+            path: '/retiros',
+            name: 'retiros',
+            component: Retiros,
+            meta: {
+                requiresAuth: true,
+            }
+        },
+
+        {
+            path: '/retiros/register',
+            name: 'registerRetiros',
+            component: registerRetiros,
+            meta: {
+                requiresAuth: true,
+            }
+        },
+
+        {
+            path: '/retiros/editar/:id',
+            name: 'updateRetiros',
+            component: updateRetiros,
             meta: {
                 requiresAuth: true,
             }

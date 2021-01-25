@@ -11,7 +11,7 @@ class Consignaciones extends Model
 
 
     protected $fillable = [
-        'codigo_consignaciones', 'id_usuario', 'valor_consignacion', 'descripcion_consignacion'
+        'codigo_consignaciones', 'id_usuario', 'id_cuenta', 'valor_consignacion', 'descripcion_consignacion'
     ];
 
 }
