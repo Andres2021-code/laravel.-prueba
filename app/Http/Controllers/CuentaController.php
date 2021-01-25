@@ -87,7 +87,7 @@ class CuentaController extends ApiController
     {
         $cuenta = Cuenta::find($request->get("id"));
         if($cuenta === null){
-            return $this->sendErrors("Error en los datos", ["la Cuenta no existe"], 200);
+            return $this->sendErrors("Error en los datos", ["la Cuenta no existe"], 422);
         }
 
         $validator = Validator::make($request->all(), [

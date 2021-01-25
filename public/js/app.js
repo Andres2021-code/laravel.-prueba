@@ -2001,6 +2001,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       type_user: [],
+      user_id: null,
       email: null,
       password: null,
       numero_documento: null,
@@ -2023,6 +2024,9 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
+    onChange: function onChange(event) {
+      this.user_id = event.target.value;
+    },
     registrar: function registrar() {
       this.$router.push({
         name: "registrarse"
@@ -2035,13 +2039,13 @@ __webpack_require__.r(__webpack_exports__);
         email: this.email,
         password: this.password,
         usuario_cedula: this.numero_documento,
-        tipo_id: this.type_user[0]['id']
+        tipo_id: this.user_id
       }).then(function (response) {
         _this2.$router.push({
           name: "dashboard"
         });
       })["catch"](function (error) {
-        console.log(error.response.data);
+        _this2.error = error.response.data.errorMessage;
       });
     }
   }
@@ -2174,7 +2178,7 @@ __webpack_require__.r(__webpack_exports__);
           name: "login"
         });
       })["catch"](function (error) {
-        _this2.error = error.response.data;
+        _this2.error = error.response.data.errorMessage;
       });
     }
   }
@@ -3192,7 +3196,9 @@ __webpack_require__.r(__webpack_exports__);
         clave_cuenta: this.clave_cuenta,
         descripcion: this.descripcion
       }).then(function (response) {
-        console.log(response); // this.$router.push({ name: "cuentas" });
+        _this2.$router.push({
+          name: "cuentas"
+        });
       })["catch"](function (error) {
         _this2.error = error.response.data;
       });
@@ -21549,6 +21555,13 @@ var render = function() {
                 _c("div", { staticClass: "select" }, [
                   _c(
                     "select",
+                    {
+                      on: {
+                        change: function($event) {
+                          return _vm.onChange($event)
+                        }
+                      }
+                    },
                     [
                       _c("option", [_vm._v("seleccionar tipo de usuario")]),
                       _vm._v(" "),
@@ -23377,7 +23390,11 @@ var render = function() {
                         }
                       ],
                       staticClass: "input",
-                      attrs: { type: "text", placeholder: "numero de cuenta" },
+                      attrs: {
+                        type: "text",
+                        placeholder: "numero de cuenta",
+                        required: ""
+                      },
                       domProps: { value: _vm.numero_cuenta },
                       on: {
                         input: function($event) {
@@ -23396,6 +23413,7 @@ var render = function() {
                     _c(
                       "select",
                       {
+                        attrs: { required: "" },
                         on: {
                           change: function($event) {
                             return _vm.onChange($event)
@@ -23430,7 +23448,11 @@ var render = function() {
                         }
                       ],
                       staticClass: "input",
-                      attrs: { type: "number", placeholder: "saldo" },
+                      attrs: {
+                        type: "number",
+                        placeholder: "saldo",
+                        required: ""
+                      },
                       domProps: { value: _vm.saldo },
                       on: {
                         input: function($event) {
@@ -23508,7 +23530,11 @@ var render = function() {
                         }
                       ],
                       staticClass: "input",
-                      attrs: { type: "number", placeholder: "clave" },
+                      attrs: {
+                        type: "number",
+                        placeholder: "clave",
+                        required: ""
+                      },
                       domProps: { value: _vm.clave_cuenta },
                       on: {
                         input: function($event) {
@@ -23534,7 +23560,10 @@ var render = function() {
                         }
                       ],
                       staticClass: "textarea",
-                      attrs: { placeholder: "Descripcion de la cuenta" },
+                      attrs: {
+                        placeholder: "Descripcion de la cuenta",
+                        required: ""
+                      },
                       domProps: { value: _vm.descripcion },
                       on: {
                         input: function($event) {
@@ -41446,14 +41475,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************************!*\
   !*** ./resources/js/views/component/auth/Login.vue ***!
   \*****************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Login_vue_vue_type_template_id_30fddbf3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Login.vue?vue&type=template&id=30fddbf3& */ "./resources/js/views/component/auth/Login.vue?vue&type=template&id=30fddbf3&");
 /* harmony import */ var _Login_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Login.vue?vue&type=script&lang=js& */ "./resources/js/views/component/auth/Login.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Login_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Login_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -41483,7 +41513,7 @@ component.options.__file = "resources/js/views/component/auth/Login.vue"
 /*!******************************************************************************!*\
   !*** ./resources/js/views/component/auth/Login.vue?vue&type=script&lang=js& ***!
   \******************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

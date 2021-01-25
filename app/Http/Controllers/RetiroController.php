@@ -91,7 +91,7 @@ class RetiroController extends ApiController
     {
         $retiros = Retiro::find($request->get("id"));
         if($retiros === null){
-            return $this->sendErrors("Error en los datos", ["el retiros no existe"], 200);
+            return $this->sendErrors("Error en los datos", ["el retiros no existe"], 422);
         }
 
       

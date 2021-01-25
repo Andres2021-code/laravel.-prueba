@@ -108,7 +108,7 @@ class ClienteController extends ApiController
     {
         $cliente = Cliente::find($request->get("id"));
         if($cliente === null){
-            return $this->sendErrors("Error en los datos", ["El cliente no existe"], 200);
+            return $this->sendErrors("Error en los datos", ["El cliente no existe"], 422);
         }
 
         $validator = Validator::make($request->all(), [

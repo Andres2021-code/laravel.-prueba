@@ -11,7 +11,7 @@
             <div class="field">
              
                 <div class="select">
-                  <select>
+                  <select  @change="onChange($event)">
                      
                     <option>seleccionar tipo de usuario</option>
                          <option v-for="user in type_user" v-bind:key="user.id" v-bind:value="user.id"> {{ user.nombre }} </option>
@@ -49,6 +49,7 @@ export default {
   data() {
     return {
       type_user:[],
+      user_id:null,
       email: null,
       password: null,
       numero_documento: null,
@@ -73,11 +74,14 @@ export default {
       });    
   },
   methods: {
+     onChange(event) {
+       this.user_id = event.target.value;
+     },
 
     registrar(){
        this.$router.push({ name: "registrarse" });
     },
-
+    
     login() {
       this.$store
         .dispatch("retrieveToken", {
@@ -85,13 +89,13 @@ export default {
           email: this.email,
           password: this.password,
           usuario_cedula: this.numero_documento,
-          tipo_id: this.type_user[0]['id']
+          tipo_id: this.user_id
         })
         .then(response => {
           this.$router.push({ name: "dashboard" });
         })
         .catch(error => {
-         console.log( error.response.data);
+          this.error = error.response.data.errorMessage;
         });
     }
   },

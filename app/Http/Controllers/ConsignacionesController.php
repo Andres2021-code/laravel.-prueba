@@ -102,7 +102,7 @@ class ConsignacionesController extends ApiController
     {
         $consignaciones = Consignaciones::find($request->get("id"));
         if($consignaciones === null){
-            return $this->sendErrors("Error en los datos", ["la consignaciones no existe"], 200);
+            return $this->sendErrors("Error en los datos", ["la consignaciones no existe"], 422);
         }
 
       

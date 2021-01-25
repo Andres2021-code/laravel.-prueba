@@ -13,14 +13,14 @@
             
             <div class="field">
               <div class="control">
-                <input type="text" class="input" placeholder="numero de cuenta" v-model="numero_cuenta" />
+                <input type="text" class="input" placeholder="numero de cuenta" v-model="numero_cuenta" required/>
               </div>
             </div>
 
             <div class="field">
              
                 <div class="select">
-                  <select @change="onChange($event)">                  
+                  <select @change="onChange($event)" required>                  
                     <option>cliente</option>
                     <option v-for="cli in clientes" v-bind:key="cli.id" v-bind:value="cli.id"> {{ cli.nombres }} </option>
                   </select>
@@ -29,7 +29,7 @@
             </div>
              <div class="field">
               <div class="control">
-                <input type="number" class="input" placeholder="saldo" v-model="saldo" />
+                <input type="number" class="input" placeholder="saldo" v-model="saldo" required/>
               </div>
             </div>
 
@@ -47,13 +47,13 @@
 
              <div class="field">
               <div class="control">
-                <input type="number" class="input" placeholder="clave" v-model="clave_cuenta" />
+                <input type="number" class="input" placeholder="clave" v-model="clave_cuenta" required/>
               </div>
             </div>
 
             <div class="field">
               <div class="control">
-                <textarea class="textarea" placeholder="Descripcion de la cuenta"  v-model="descripcion"></textarea>
+                <textarea class="textarea" placeholder="Descripcion de la cuenta"  v-model="descripcion" required></textarea>
 
               </div>
             </div>
@@ -126,8 +126,7 @@ export default {
             descripcion: this.descripcion
         })
         .then(response => {
-          console.log(response)
-        // this.$router.push({ name: "cuentas" });
+          this.$router.push({ name: "cuentas" });
         })
         .catch(error => {
          this.error = error.response.data;
